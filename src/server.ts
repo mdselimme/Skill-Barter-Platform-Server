@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Server } from "node:http";
 import app from "./app";
 import { envVariables } from "./app/config/env.config";
@@ -19,7 +20,7 @@ bootstrap();
 
 //function to handle server shutdown
 const serverShutdown = async (message:string, err?:any) => {
-    console.log(`Message : ${message}. Server is closing.`, err);
+    console.log(`Message : ${message}. Server is closing.`, err || "");
     if(server){
         server.close(()=>{
             process.exit(1);
