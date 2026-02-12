@@ -1,6 +1,12 @@
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
+import globalErrorHandler from "./app/middleware/globalErrorHandler";
+import { AppRoutes } from "./app/routes";
+import notFoundRoute from "./app/middleware/notFoundRoute";
 
-const app = express();
+const app :Application= express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get("/", (req: Request, res: Response) => {
     res.json({
@@ -10,5 +16,15 @@ app.get("/", (req: Request, res: Response) => {
         timestamp: new Date().toISOString(),
     })
 });
+
+app.use(
+    "/api/v1",
+    AppRoutes
+)
+
+app.use(notFoundRoute);
+
+//global error handler
+app.use(globalErrorHandler);
 
 export default app;

@@ -3,21 +3,36 @@
 import { Server } from "node:http";
 import app from "./app";
 import { envVariables } from "./app/config/env.config";
+import { prisma } from "./app/utils/prisma";
 
 let server: Server;
 
 //function to start the server
-const bootstrap = () => {
+const bootstrap = async () => {
     try {
         server = app.listen(envVariables.PORT, () => {
             console.log(`Server is running on port ${envVariables.PORT}`);
+        }).on("error", (err) => {
+            serverShutdown("Error starting server", err);
         });
     } catch (error) {
         serverShutdown("Failed to start server:", error);
     }
 };
 
-bootstrap();
+bootstrap()
+  .then(async () => {
+    console.log("database connected");
+      await prisma.$connect()
+    }).then(async () => {
+      await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  });
+
 
 //function to handle server shutdown
 const serverShutdown = async (message:string, err?:any) => {
