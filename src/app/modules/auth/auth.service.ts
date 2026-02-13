@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import bcrypt from "bcrypt";
 import { prisma } from "../../utils/prisma";
-import { Prisma } from "@prisma/client";
 import { generateToken } from "../../utils/jwtToken";
 import { envVariables } from "../../config/env.config";
 import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
+import { Prisma } from "../../../../generated/prisma";
 
 
 //auth login service

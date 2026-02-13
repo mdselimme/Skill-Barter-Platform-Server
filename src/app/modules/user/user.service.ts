@@ -1,8 +1,8 @@
-import { Prisma } from "@prisma/client";
 import { prisma } from "../../utils/prisma";
 import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
+import { Prisma } from "../../../../generated/prisma";
 
 //user registration service
 const userRegistration = async (payload: Prisma.UserCreateInput) => {
@@ -16,15 +16,20 @@ const userRegistration = async (payload: Prisma.UserCreateInput) => {
         throw new ApiError(httpStatus.BAD_REQUEST, "User already exists");
     }
     const passwordHash = await bcrypt.hash(payload.password, 10);
+    const userData = {
+        ...payload,
+        password:passwordHash
+    }
     //create user
     const result = await prisma.user.create({
-        data: {
-            ...payload,
-            
-            password: passwordHash
-        },
-        omit:{
-            password: true,
+        data: userData,
+        select:{
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isVerified: true,
+            isActive: true,
         }
     });
     return result;
