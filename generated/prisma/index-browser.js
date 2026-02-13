@@ -132,7 +132,6 @@ exports.Prisma.UserScalarFieldEnum = {
   credits: 'credits',
   isActive: 'isActive',
   isVerified: 'isVerified',
-  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -193,6 +192,13 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN'
+};
+
+exports.Status = exports.$Enums.Status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DELETED: 'DELETED',
+  BLOCKED: 'BLOCKED'
 };
 
 exports.SessionStatus = exports.$Enums.SessionStatus = {

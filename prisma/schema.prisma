@@ -13,6 +13,13 @@ enum Role {
   SUPER_ADMIN
 }
 
+enum Status {
+  ACTIVE
+  INACTIVE
+  DELETED
+  BLOCKED
+}
+
 model User {
   id         String  @id @default(uuid())
   name       String
@@ -23,9 +30,8 @@ model User {
   profileImg String?
   role       Role    @default(USER)
   credits    Int     @default(10)
-  isActive   Boolean @default(true)
+  isActive   Status  @default(ACTIVE)
   isVerified Boolean @default(false)
-  isDeleted  Boolean @default(false)
 
   sessionAsTeacher BarterSession[] @relation("Teacher")
   sessionAsStudent BarterSession[] @relation("Learner")

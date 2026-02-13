@@ -2,11 +2,20 @@ import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import { AppRoutes } from "./app/routes";
 import notFoundRoute from "./app/middleware/notFoundRoute";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app :Application= express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
+
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+}));
 
 app.get("/", (req: Request, res: Response) => {
     res.json({

@@ -52,6 +52,16 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const Status: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DELETED: 'DELETED',
+  BLOCKED: 'BLOCKED'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
+
+
 export const SessionStatus: {
   PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
@@ -83,6 +93,10 @@ export type SkillLevel = (typeof SkillLevel)[keyof typeof SkillLevel]
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
 
 export type SessionStatus = $Enums.SessionStatus
 
@@ -1401,9 +1415,8 @@ export namespace Prisma {
     profileImg: string | null
     role: $Enums.Role | null
     credits: number | null
-    isActive: boolean | null
+    isActive: $Enums.Status | null
     isVerified: boolean | null
-    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1418,9 +1431,8 @@ export namespace Prisma {
     profileImg: string | null
     role: $Enums.Role | null
     credits: number | null
-    isActive: boolean | null
+    isActive: $Enums.Status | null
     isVerified: boolean | null
-    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1437,7 +1449,6 @@ export namespace Prisma {
     credits: number
     isActive: number
     isVerified: number
-    isDeleted: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1464,7 +1475,6 @@ export namespace Prisma {
     credits?: true
     isActive?: true
     isVerified?: true
-    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1481,7 +1491,6 @@ export namespace Prisma {
     credits?: true
     isActive?: true
     isVerified?: true
-    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1498,7 +1507,6 @@ export namespace Prisma {
     credits?: true
     isActive?: true
     isVerified?: true
-    isDeleted?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1600,9 +1608,8 @@ export namespace Prisma {
     profileImg: string | null
     role: $Enums.Role
     credits: number
-    isActive: boolean
+    isActive: $Enums.Status
     isVerified: boolean
-    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1638,7 +1645,6 @@ export namespace Prisma {
     credits?: boolean
     isActive?: boolean
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sessionAsTeacher?: boolean | User$sessionAsTeacherArgs<ExtArgs>
@@ -1659,7 +1665,6 @@ export namespace Prisma {
     credits?: boolean
     isActive?: boolean
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1676,7 +1681,6 @@ export namespace Prisma {
     credits?: boolean
     isActive?: boolean
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1693,12 +1697,11 @@ export namespace Prisma {
     credits?: boolean
     isActive?: boolean
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phone" | "address" | "profileImg" | "role" | "credits" | "isActive" | "isVerified" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phone" | "address" | "profileImg" | "role" | "credits" | "isActive" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessionAsTeacher?: boolean | User$sessionAsTeacherArgs<ExtArgs>
     sessionAsStudent?: boolean | User$sessionAsStudentArgs<ExtArgs>
@@ -1725,9 +1728,8 @@ export namespace Prisma {
       profileImg: string | null
       role: $Enums.Role
       credits: number
-      isActive: boolean
+      isActive: $Enums.Status
       isVerified: boolean
-      isDeleted: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2165,9 +2167,8 @@ export namespace Prisma {
     readonly profileImg: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly credits: FieldRef<"User", 'Int'>
-    readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly isActive: FieldRef<"User", 'Status'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
-    readonly isDeleted: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -7139,7 +7140,6 @@ export namespace Prisma {
     credits: 'credits',
     isActive: 'isActive',
     isVerified: 'isVerified',
-    isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7269,6 +7269,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -7361,9 +7375,8 @@ export namespace Prisma {
     profileImg?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     credits?: IntFilter<"User"> | number
-    isActive?: BoolFilter<"User"> | boolean
+    isActive?: EnumStatusFilter<"User"> | $Enums.Status
     isVerified?: BoolFilter<"User"> | boolean
-    isDeleted?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessionAsTeacher?: BarterSessionListRelationFilter
@@ -7383,7 +7396,6 @@ export namespace Prisma {
     credits?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sessionAsTeacher?: BarterSessionOrderByRelationAggregateInput
@@ -7404,9 +7416,8 @@ export namespace Prisma {
     profileImg?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     credits?: IntFilter<"User"> | number
-    isActive?: BoolFilter<"User"> | boolean
+    isActive?: EnumStatusFilter<"User"> | $Enums.Status
     isVerified?: BoolFilter<"User"> | boolean
-    isDeleted?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessionAsTeacher?: BarterSessionListRelationFilter
@@ -7426,7 +7437,6 @@ export namespace Prisma {
     credits?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -7449,9 +7459,8 @@ export namespace Prisma {
     profileImg?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     credits?: IntWithAggregatesFilter<"User"> | number
-    isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    isActive?: EnumStatusWithAggregatesFilter<"User"> | $Enums.Status
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
-    isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -7735,9 +7744,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionCreateNestedManyWithoutTeacherInput
@@ -7755,9 +7763,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionUncheckedCreateNestedManyWithoutTeacherInput
@@ -7775,9 +7782,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUpdateManyWithoutTeacherNestedInput
@@ -7795,9 +7801,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUncheckedUpdateManyWithoutTeacherNestedInput
@@ -7815,9 +7820,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7832,9 +7836,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7849,9 +7852,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8176,6 +8178,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -8229,7 +8238,6 @@ export namespace Prisma {
     credits?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8250,7 +8258,6 @@ export namespace Prisma {
     credits?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8267,7 +8274,6 @@ export namespace Prisma {
     credits?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8336,6 +8342,16 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8621,6 +8637,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8973,6 +8993,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -9069,6 +9096,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -9390,9 +9427,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsStudent?: BarterSessionCreateNestedManyWithoutLearnerInput
@@ -9409,9 +9445,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsStudent?: BarterSessionUncheckedCreateNestedManyWithoutLearnerInput
@@ -9433,9 +9468,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionCreateNestedManyWithoutTeacherInput
@@ -9452,9 +9486,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionUncheckedCreateNestedManyWithoutTeacherInput
@@ -9529,9 +9562,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsStudent?: BarterSessionUpdateManyWithoutLearnerNestedInput
@@ -9548,9 +9580,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsStudent?: BarterSessionUncheckedUpdateManyWithoutLearnerNestedInput
@@ -9578,9 +9609,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUpdateManyWithoutTeacherNestedInput
@@ -9597,9 +9627,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUncheckedUpdateManyWithoutTeacherNestedInput
@@ -9764,9 +9793,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionCreateNestedManyWithoutTeacherInput
@@ -9783,9 +9811,8 @@ export namespace Prisma {
     profileImg?: string | null
     role?: $Enums.Role
     credits?: number
-    isActive?: boolean
+    isActive?: $Enums.Status
     isVerified?: boolean
-    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessionAsTeacher?: BarterSessionUncheckedCreateNestedManyWithoutTeacherInput
@@ -9839,9 +9866,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUpdateManyWithoutTeacherNestedInput
@@ -9858,9 +9884,8 @@ export namespace Prisma {
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     credits?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessionAsTeacher?: BarterSessionUncheckedUpdateManyWithoutTeacherNestedInput

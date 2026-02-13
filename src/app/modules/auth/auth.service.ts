@@ -4,6 +4,8 @@ import { prisma } from "../../utils/prisma";
 import { Prisma } from "@prisma/client";
 import { generateToken } from "../../utils/jwtToken";
 import { envVariables } from "../../config/env.config";
+import ApiError from "../../utils/ApiError";
+import httpStatus from "http-status";
 
 
 //auth login service
@@ -35,10 +37,38 @@ const authLoginUser = async (payload: Prisma.UserCreateInput) => {
     return {user:userWithoutPassword, accessToken, refreshToken};
 };
 
-//
+// change password 
+const changePassword = async (userId: string, payload: {oldPassword: string, newPassword: string}) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+    });
+    if(!user){
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    const isPasswordMatched = await bcrypt.compare(payload.oldPassword, user.password);
+    if(!isPasswordMatched){
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid Old password");
+    }
+    if(payload.newPassword === payload.oldPassword){
+        throw new ApiError(httpStatus.BAD_REQUEST, "New password cannot be same as old password");
+    };
+    const hashedPassword = await bcrypt.hash(payload.newPassword, envVariables.PASSWORD_HASH_SALT);
+    const result = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            password: hashedPassword,
+        },
+    });
+    return result;
+};
 
 
 
 export const AuthServices = {
-    authLoginUser
+    authLoginUser,
+    changePassword
 }
