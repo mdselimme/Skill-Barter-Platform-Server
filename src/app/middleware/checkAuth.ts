@@ -18,7 +18,7 @@ const checkAuth = (...auth:string[])=> {
         }
         const user = await prisma.user.findUnique({
             where: {
-                id: accessToken
+                email: verifiedToken.email
             }
         })
         if(!user){

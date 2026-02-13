@@ -20,6 +20,7 @@ const userRegistration = async (payload: Prisma.UserCreateInput) => {
     const result = await prisma.user.create({
         data: {
             ...payload,
+            
             password: passwordHash
         },
         omit:{

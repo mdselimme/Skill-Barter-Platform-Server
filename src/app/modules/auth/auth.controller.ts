@@ -27,11 +27,11 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
 
     const decodedToken = req.user;
 
-    const result = await AuthServices.changePassword(decodedToken.id, req.body)
+    await AuthServices.changePassword(decodedToken.id, req.body)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        data: result,
+        data: null,
         message: "Password changed successfully."
     })
 })

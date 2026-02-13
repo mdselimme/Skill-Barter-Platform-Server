@@ -1,0 +1,14 @@
+
+
+export enum UserStatus {
+ACTIVE="ACTIVE",
+INACTIVE="INACTIVE",
+DELETED="DELETED",
+BLOCKED="BLOCKED"
+}
+
+export enum UserRole {
+USER="USER",
+ADMIN="ADMIN",
+SUPER_ADMIN="SUPER_ADMIN"
+}

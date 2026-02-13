@@ -2,6 +2,8 @@ import { Router } from "express";
 import { validateZodSchema } from "../../middleware/validateZodSchema";
 import { AuthValidation } from "./auth.validation";
 import { AuthController } from "./auth.controller";
+import checkAuth from "../../middleware/checkAuth";
+import { UserRole } from "./auth.interface";
 
 
 const router = Router();
@@ -12,6 +14,12 @@ router.post("/login",
     AuthController.authLoginUser
 );
 
+//change password router
+router.patch("/change-password",
+    checkAuth(...Object.values(UserRole)),
+    validateZodSchema(AuthValidation.changePasswordZodSchema),
+    AuthController.changePassword
+);  
 
 
 export const AuthRoutes = router;
