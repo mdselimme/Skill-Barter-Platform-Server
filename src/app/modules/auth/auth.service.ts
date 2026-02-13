@@ -22,8 +22,9 @@ const authLoginUser = async (payload: Prisma.UserCreateInput) => {
 
     const {password:_, ...userWithoutPassword} = result;
     return userWithoutPassword;
-
 };
+
+//
 
 
 
