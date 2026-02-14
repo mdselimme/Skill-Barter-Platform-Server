@@ -21,5 +21,10 @@ router.patch("/change-password",
     AuthController.changePassword
 );  
 
+//user logout router
+router.post("/logout",
+    checkAuth(...Object.values(UserRole)),
+    AuthController.authLogoutUser
+);
 
 export const AuthRoutes = router;

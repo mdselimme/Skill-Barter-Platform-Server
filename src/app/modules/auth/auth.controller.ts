@@ -34,11 +34,36 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
         data: null,
         message: "Password changed successfully."
     })
-})
+});
+
+//user logout controller
+const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
+
+    res.clearCookie("accessToken",{
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+    });
+    res.clearCookie("refreshToken",{
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+    });
+    
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: null,
+        message: "User logged out successfully."
+    });
+});
 
 
 
 export const AuthController = {
     authLoginUser,
-    changePassword
+    changePassword,
+    authLogoutUser
 }
