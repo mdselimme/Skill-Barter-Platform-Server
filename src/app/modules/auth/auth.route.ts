@@ -21,6 +21,11 @@ router.patch("/change-password",
     AuthController.changePassword
 );  
 
+//refresh token router
+router.post("/refresh-token",
+    AuthController.refreshToken
+);
+
 //user logout router
 router.post("/logout",
     checkAuth(...Object.values(UserRole)),

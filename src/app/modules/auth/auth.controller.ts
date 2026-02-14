@@ -36,6 +36,22 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+// refresh token controller
+const refreshToken = catchAsync(async (req: Request, res: Response) => {
+    const refreshToken = req.cookies.refreshToken || req.headers["refresh-token"];
+    if(!refreshToken){
+        throw new Error("Refresh token not found");
+    }
+    const result = await AuthServices.refreshToken(refreshToken);
+    setTokenCookie(res, result);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: result,
+        message: "Access token refreshed successfully."
+    })
+});
+
 //user logout controller
 const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
 
@@ -65,5 +81,6 @@ const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
 export const AuthController = {
     authLoginUser,
     changePassword,
+    refreshToken,
     authLogoutUser
 }

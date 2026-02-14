@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import bcrypt from "bcrypt";
 import { prisma } from "../../utils/prisma";
-import { generateToken } from "../../utils/jwtToken";
+import { generateToken, verifyToken } from "../../utils/jwtToken";
 import { envVariables } from "../../config/env.config";
 import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
@@ -66,9 +66,35 @@ const changePassword = async (userId: string, payload: {oldPassword: string, new
     return result;
 };
 
+//refresh token service
+const refreshToken = async (refreshToken: string) => {
+
+    const decoded = verifyToken(refreshToken, envVariables.JWT_REFRESH_SECRET);
+    if(!decoded){
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid refresh token");
+    }
+    const user = await prisma.user.findUnique({
+        where: {
+            email: decoded.email,
+        },
+    });
+    if(!user){
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    const tokenPayload = {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+    }
+    const newAccessToken = generateToken(tokenPayload, envVariables.JWT_ACCESS_SECRET, envVariables.JWT_ACCESS_EXPIRES);
+    const newRefreshToken = generateToken(tokenPayload, envVariables.JWT_REFRESH_SECRET, envVariables.JWT_REFRESH_EXPIRES);
+    return {accessToken: newAccessToken, refreshToken: newRefreshToken};
+};
+
 
 
 export const AuthServices = {
     authLoginUser,
-    changePassword
+    changePassword,
+    refreshToken
 }
