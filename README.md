@@ -83,7 +83,7 @@ npm run dev
 
 - POST http://localhost:5000/api/v1/user/register
 
-#### Register Request Body
+Register Request Body:
 
 ```json
 {
@@ -101,7 +101,7 @@ npm run dev
 
 - credentials: true
 
-#### Login Request Body
+Login Request Body:
 
 ```json
 {
@@ -116,7 +116,7 @@ npm run dev
 
 - credentials: true
 
-#### Change Password Request Body
+Change Password Request Body:
 
 ```json
 {
@@ -131,7 +131,7 @@ npm run dev
 
 - credentials: true
 
-#### Refresh Token Response Body
+Refresh Token Response Body:
 
 ```json
 {
@@ -151,7 +151,7 @@ npm run dev
 
 - credentials: true
 
-#### Logout Response Body
+Logout Response Body:
 
 ```json
 {
