@@ -144,3 +144,20 @@ npm run dev
   "success": true
 }
 ```
+
+**4. Logout**
+
+- POST http://localhost:5000/api/v1/auth/logout
+
+- credentials: true
+
+#### Logout Response Body
+
+```json
+{
+  "statusCode": 200,
+  "data": null,
+  "message": "User logged out successfully.",
+  "success": true
+}
+```
