@@ -67,7 +67,26 @@ JWT_REFRESH_EXPIRES=
 First, run the development server:
 
 ```bash
+
+npm install
+
 npm run dev
 ```
 
 --
+
+# API Documentation
+
+### User Api Endpoints
+
+**Register**
+
+- POST http://localhost:5000/api/v1/user/register
+
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
