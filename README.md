@@ -83,9 +83,28 @@ npm run dev
 
 - POST http://localhost:5000/api/v1/user/register
 
+### Register Request Body
+
 ```json
 {
   "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+#### Auth Api Endpoints
+
+**1. Login**
+
+- POST http://localhost:5000/api/v1/auth/login
+
+- credentials: true
+
+#### Login Request Body
+
+```json
+{
   "email": "john.doe@example.com",
   "password": "password123"
 }
