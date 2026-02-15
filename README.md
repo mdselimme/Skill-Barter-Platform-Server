@@ -112,7 +112,7 @@ npm run dev
 
 **2. Change Password**
 
-- POST http://localhost:5000/api/v1/auth/change-password
+- PATCH http://localhost:5000/api/v1/auth/change-password
 
 - credentials: true
 
@@ -122,5 +122,25 @@ npm run dev
 {
   "oldPassword": "password123",
   "newPassword": "newPassword123"
+}
+```
+
+**3. Refresh Token**
+
+- POST http://localhost:5000/api/v1/auth/refresh-token
+
+- credentials: true
+
+#### Refresh Token Response Body
+
+```json
+{
+  "statusCode": 200,
+  "data": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5"
+  },
+  "message": "Access token refreshed successfully.",
+  "success": true
 }
 ```
