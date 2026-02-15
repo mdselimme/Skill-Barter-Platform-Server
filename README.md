@@ -79,11 +79,11 @@ npm run dev
 
 ### User Api Endpoints
 
-**Register**
+**1. Register**
 
 - POST http://localhost:5000/api/v1/user/register
 
-### Register Request Body
+#### Register Request Body
 
 ```json
 {
@@ -107,5 +107,20 @@ npm run dev
 {
   "email": "john.doe@example.com",
   "password": "password123"
+}
+```
+
+**2. Change Password**
+
+- POST http://localhost:5000/api/v1/auth/change-password
+
+- credentials: true
+
+#### Change Password Request Body
+
+```json
+{
+  "oldPassword": "password123",
+  "newPassword": "newPassword123"
 }
 ```
