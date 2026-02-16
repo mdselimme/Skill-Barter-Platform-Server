@@ -122,7 +122,34 @@ Login Request Body:
 }
 ```
 
-**2. Change Password**
+**2. Email Verify Email Send**
+
+- POST http://localhost:5000/api/v1/auth/verify-email
+
+Email Verify Email Send Request Body:
+
+```json
+{
+  "email": "john.doe@example.com"
+}
+```
+
+**3. Verify Email By OTP**
+
+- POST http://localhost:5000/api/v1/auth/verify-email-code
+
+- credentials: true
+
+Verify Email By OTP Request Body:
+
+```json
+{
+  "email": "john.doe@example.com",
+  "otp": "123456"
+}
+```
+
+**4. Change Password**
 
 - PATCH http://localhost:5000/api/v1/auth/change-password
 
@@ -137,7 +164,7 @@ Change Password Request Body:
 }
 ```
 
-**3. Refresh Token**
+**5. Refresh Token**
 
 - POST http://localhost:5000/api/v1/auth/refresh-token
 
@@ -157,7 +184,7 @@ Refresh Token Response Body:
 }
 ```
 
-**4. Logout**
+**6. Logout**
 
 - POST http://localhost:5000/api/v1/auth/logout
 
