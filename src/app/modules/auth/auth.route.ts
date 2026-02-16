@@ -27,6 +27,12 @@ router.post("/verify-email",
     AuthController.verifyEmailSend
 );
 
+//verify email code
+router.post("/verify-email-code",
+    validateZodSchema(AuthValidation.verifyEmailZodSchema),
+    AuthController.verifyEmailCode
+);
+
 //refresh token router
 router.post("/refresh-token",
     AuthController.refreshToken

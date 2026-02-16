@@ -63,6 +63,16 @@ const verifyEmailSend = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+// verify email code
+const verifyEmailCode = catchAsync(async (req: Request, res: Response) => {
+    const result = await AuthServices.verifyEmailCode(req.body)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: result,
+        message: "Email verification code verified successfully."
+    })
+})
 
 //user logout controller
 const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
@@ -96,4 +106,5 @@ export const AuthController = {
     refreshToken,
     authLogoutUser,
     verifyEmailSend,
+    verifyEmailCode
 }

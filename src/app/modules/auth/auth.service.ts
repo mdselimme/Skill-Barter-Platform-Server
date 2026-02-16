@@ -133,10 +133,52 @@ const verifyEmailSend = async (payload: Prisma.UserCreateInput) => {
     );
 };
 
+// verify email code
+const verifyEmailCode = async (payload: {email: string, otp: string}) => {
+    const result = await prisma.user.findUnique({
+        where: {    
+            email: payload.email,
+        },
+    });
+    if(!result){
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    if(result.isVerified){
+        throw new ApiError(httpStatus.BAD_REQUEST, "User already verified");
+    }
+    if(result.isActive !== UserStatus.ACTIVE){
+        throw new ApiError(httpStatus.BAD_REQUEST, "User is not active");
+    }
+    //get otp from redis
+    const otp = await redisClient.get(`otp:${result.email}`);
+    if(!otp){
+        throw new ApiError(httpStatus.BAD_REQUEST, "OTP not found");
+    }
+    if(otp !== payload.otp){
+        throw new ApiError(httpStatus.BAD_REQUEST, "Invalid OTP");
+    }
+    await Promise.all([
+        redisClient.del(`otp:${result.email}`),
+        prisma.user.update({
+            where: {
+                email: payload.email,
+        },
+        data: {
+            isVerified: true,
+        },
+        })
+    ]);
+
+    return {
+        message: "Email verified successfully."
+    }
+};
+
 
 export const AuthServices = {
     authLoginUser,
     changePassword,
     refreshToken,
-    verifyEmailSend
+    verifyEmailSend,
+    verifyEmailCode
 }
