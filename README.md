@@ -41,6 +41,10 @@ Skill Barter is a platform where users exchange their skill instead of money. Su
 
 git clone https://github.com/mdselimme/Skill-Barter-Platform-Server.git
 
+cd Skill-Barter-Platform-Server
+
+npm install
+
 ```
 
 **Set up .env file with requirement variables**
