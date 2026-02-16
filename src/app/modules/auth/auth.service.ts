@@ -6,6 +6,10 @@ import { envVariables } from "../../config/env.config";
 import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import { Prisma } from "../../../../generated/prisma";
+import { UserStatus } from "./auth.interface";
+import sendEmail from "../../utils/sendEmail";
+import { generateOTP, OTP_EXPIRATION } from "../../utils/otpGenerate";
+import { redisClient } from "../../config/redis.config";
 
 
 //auth login service
@@ -91,10 +95,48 @@ const refreshToken = async (refreshToken: string) => {
     return {accessToken: newAccessToken, refreshToken: newRefreshToken};
 };
 
+// verify email send service
+const verifyEmailSend = async (payload: Prisma.UserCreateInput) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            email: payload.email,
+        },
+    });
+    if(!result){
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    if(result.isVerified){
+        throw new ApiError(httpStatus.BAD_REQUEST, "User already verified");
+    }
+    if(result.isActive !== UserStatus.ACTIVE){
+        throw new ApiError(httpStatus.BAD_REQUEST, "User is not active");
+    }
+    const otp = generateOTP();
+
+    await redisClient.set(`otp:${result.email}`, otp, {
+        expiration: {
+            type: "EX",
+            value:OTP_EXPIRATION
+        }
+    });
+
+    await sendEmail(
+       {
+        to: result.email,
+        subject: "Verify Your Email.",
+        templateName: "verifyEmail",
+        templateData: {
+            otp,
+            name: result.name,
+        }
+       }
+    );
+};
 
 
 export const AuthServices = {
     authLoginUser,
     changePassword,
-    refreshToken
+    refreshToken,
+    verifyEmailSend
 }

@@ -21,6 +21,12 @@ router.patch("/change-password",
     AuthController.changePassword
 );  
 
+//verify email router
+router.post("/verify-email",
+    validateZodSchema(AuthValidation.verifyEmailSendZodSchema),
+    AuthController.verifyEmailSend
+);
+
 //refresh token router
 router.post("/refresh-token",
     AuthController.refreshToken

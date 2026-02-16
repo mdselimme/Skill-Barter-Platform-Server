@@ -25,8 +25,27 @@ const changePasswordZodSchema = z.object({
             .regex(/^(?=.*\d)/, { message: "Password must be contain at least 1 number" }),
 });
 
+//verify email 
+const verifyEmailSendZodSchema = z.object({
+    email: z.email({
+        error: "Email is required & valida email string."
+    }),
+});
+
+//verify email validation
+const verifyEmailZodSchema = z.object({
+    email: z.email({
+        error: "Email is required & valida email string."
+    }),
+    otp: z.string({
+        error: "OTP is required"
+    }).min(6, "OTP must be 6 characters long"),
+});
+
 
 export const AuthValidation = {
     loginZodSchema,
-    changePasswordZodSchema
+    changePasswordZodSchema,
+    verifyEmailSendZodSchema,
+    verifyEmailZodSchema    
 };

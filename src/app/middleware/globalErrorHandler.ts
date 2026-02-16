@@ -20,7 +20,7 @@ const globalErrorHandler = async (err:any, req:Request, res:Response, next:NextF
     let errorSources: IErrorSource[] = [];
 
     //handle zod validation error
-    if(err instanceof ZodError){
+    if(err.name === "ZodError"){
         const simplifiedError = handleZodError(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;

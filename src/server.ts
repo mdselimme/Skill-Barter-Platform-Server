@@ -4,6 +4,7 @@ import { Server } from "node:http";
 import app from "./app";
 import { envVariables } from "./app/config/env.config";
 import { prisma } from "./app/utils/prisma";
+import { connectRedisClient } from "./app/config/redis.config";
 
 let server: Server;
 
@@ -20,7 +21,8 @@ const bootstrap = async () => {
     }
 };
 
-bootstrap()
+(async ()=>{
+    bootstrap()
   .then(async () => {
     console.log("database connected");
       await prisma.$connect()
@@ -32,6 +34,8 @@ bootstrap()
     await prisma.$disconnect()
     process.exit(1)
   });
+  await connectRedisClient();
+})();
 
 
 //function to handle server shutdown
