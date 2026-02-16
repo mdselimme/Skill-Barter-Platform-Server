@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import nodemailer from "nodemailer";
 
 export interface sendEmailProps {
     to:string;
@@ -12,13 +11,3 @@ export interface sendEmailProps {
         contentType:string;
     }[];
 };
-
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: true,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD
-    }
-});

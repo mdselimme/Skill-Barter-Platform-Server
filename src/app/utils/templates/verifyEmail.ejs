@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Verify Your Email - Skill Barter</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      padding: 30px 20px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      padding: 30px 25px;
+      text-align: center;
+      color: #333333;
+    }
+
+    .content h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #111827;
+    }
+
+    .otp-box {
+      margin: 25px 0;
+      padding: 15px 0;
+      background-color: #eef2ff;
+      border-radius: 6px;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 8px;
+      color: #4f46e5;
+    }
+
+    .info-text {
+      font-size: 14px;
+      color: #555555;
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #888888;
+      background-color: #f9fafb;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        margin: 20px;
+      }
+
+      .otp-box {
+        font-size: 26px;
+        letter-spacing: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="header">
+      <h1>Skill Barter</h1>
+    </div>
+
+    <div class="content">
+      <h2>Verify Your Email Address</h2>
+      
+      <p class="info-text">
+        Hello <%= name %>,<br><br>
+        Thank you for registering with <strong>Skill Barter</strong>.
+        Please use the following One-Time Password (OTP) to verify your email address.
+      </p>
+
+      <div class="otp-box">
+        <%= otp %>
+      </div>
+
+      <p class="info-text">
+        This OTP is valid for <strong>5 minutes</strong>.<br>
+        Do not share this code with anyone.
+      </p>
+
+      <p class="info-text">
+        If you did not create an account, you can safely ignore this email.
+      </p>
+    </div>
+
+    <div class="footer">
+      © <%= new Date().getFullYear() %> Skill Barter. All rights reserved.
+    </div>
+
+  </div>
+
+</body>
+</html>
