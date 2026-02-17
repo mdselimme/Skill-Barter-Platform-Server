@@ -3,6 +3,7 @@ import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import { Prisma } from "../../../../generated/prisma";
+import { IJwtToken } from "../../types/token.types";
 
 //user registration service
 const userRegistration = async (payload: Prisma.UserCreateInput) => {
@@ -35,7 +36,34 @@ const userRegistration = async (payload: Prisma.UserCreateInput) => {
     return result;
 };
 
+//get me user service
+const getMeUser = async (user: IJwtToken
+) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            id: user.id
+        },
+        select:{
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            phone: true,
+            address: true,
+            profileImg: true,
+            credits: true,
+            isVerified: true,
+            isActive: true,
+        }
+    });
+    if (!result) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    }
+    return result;
+};
+
 
 export const UserServices = {
-    userRegistration
+    userRegistration,
+    getMeUser
 };
