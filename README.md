@@ -93,7 +93,7 @@ npm run dev
 
 ### User Api Endpoints
 
-**1. Register**
+**1. User Register**
 
 - POST http://localhost:5000/api/v1/user/register
 
@@ -104,6 +104,34 @@ Register Request Body:
   "name": "John Doe",
   "email": "john.doe@example.com",
   "password": "password123"
+}
+```
+
+**2. Current User Get**
+
+- GET http://localhost:5000/api/v1/user/me
+
+- credentials: true
+
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "id": "2fa56f87-3caf-4e1a-8295-b1d40dc5cf17",
+        "name": "Selim",
+        "email": "mdselimdev@gmail.com",
+        "role": "USER",
+        "phone": null,
+        "address": null,
+        "profileImg": null,
+        "credits": 10,
+        "isVerified": true,
+        "isActive": "ACTIVE"
+    },
+    "message": "Current User Retrieved Successfully",
+    "success": true
 }
 ```
 
