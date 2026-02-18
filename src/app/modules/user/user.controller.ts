@@ -28,7 +28,20 @@ const getMeUser = catchAsync(async (req:Request, res:Response) => {
     });
 });
 
+//get user by user id controller
+const getUserByUserId = catchAsync(async (req:Request, res:Response) => {
+    const id = req.params.id;
+    const result = await UserServices.getUserByUserId(id as string);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Get user by user id successfully.",
+        data: result,
+    });
+});
+
 export const UserControllers = {
     userRegistration,
-    getMeUser
+    getMeUser,
+    getUserByUserId
 };

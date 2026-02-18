@@ -62,8 +62,32 @@ const getMeUser = async (user: IJwtToken
     return result;
 };
 
+//get me user service
+const getUserByUserId = async (id: string
+) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            id: id
+        },
+        select:{
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            phone: true,
+            address: true,
+            profileImg: true,
+        }
+    });
+    if (!result) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    }
+    return result;
+};
+
 
 export const UserServices = {
     userRegistration,
-    getMeUser
+    getMeUser,
+    getUserByUserId
 };

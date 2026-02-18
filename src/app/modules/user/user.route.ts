@@ -20,5 +20,9 @@ router.get("/me",
     UserControllers.getMeUser
 );
 
+//get user by id
+router.get("/:id",
+    UserControllers.getUserByUserId
+)
 
 export const UserRoutes = router;
