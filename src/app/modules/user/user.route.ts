@@ -27,7 +27,9 @@ router.get("/:id",
 
 //update user role
 router.patch("/update-role",
-    
+    validateZodSchema(UserValidation.userRoleValidationSchema),
+    checkAuth(UserRole.ADMIN, UserRole.USER),
+    UserControllers.userRoleUpdate
 )
 
 export const UserRoutes = router;

@@ -4,6 +4,8 @@ import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import { Prisma } from "../../../../generated/prisma";
 import { IJwtToken } from "../../types/token.types";
+import { UserRole, UserStatus } from "../auth/auth.interface";
+
 
 //user registration service
 const userRegistration = async (payload: Prisma.UserCreateInput) => {
@@ -85,9 +87,41 @@ const getUserByUserId = async (id: string
     return result;
 };
 
+//User role update service
+const userRoleUpdate = async(payload: {role:Partial<UserRole>, email:string})=>{
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            email: payload.email,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    }
+    if(isUserExist.isActive !== UserStatus.ACTIVE){
+        throw new ApiError(httpStatus.BAD_REQUEST, `User status is ${isUserExist.isActive}`);
+    }
+    if(!isUserExist.isVerified){
+        throw new ApiError(httpStatus.BAD_REQUEST, "User is not verified.");
+    }
+    const result = await prisma.user.update({
+        where:{
+            email:payload.email,
+        },
+        data: {
+            role:payload.role
+        },
+        select: {
+            role: true,
+            name: true,
+            email:true
+        }
+    });
+    return result;
+};
 
 export const UserServices = {
     userRegistration,
     getMeUser,
-    getUserByUserId
+    getUserByUserId,
+    userRoleUpdate
 };
