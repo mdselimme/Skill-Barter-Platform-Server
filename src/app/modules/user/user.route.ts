@@ -23,6 +23,11 @@ router.get("/me",
 //get user by id
 router.get("/:id",
     UserControllers.getUserByUserId
+);
+
+//update user role
+router.patch("/update-role",
+    
 )
 
 export const UserRoutes = router;

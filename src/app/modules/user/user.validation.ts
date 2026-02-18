@@ -1,4 +1,5 @@
 import z from "zod";
+import { UserRole } from "../auth/auth.interface";
 
 
 //user register validation
@@ -20,7 +21,19 @@ const userRegisterValidation = z.object({
         .regex(/^(?=.*\d)/, { message: "Password must be contain at least 1 number" }),
 });
 
+//user role validation
+const userRoleValidationSchema = z.object({
+    role: z.enum(
+        [UserRole.ADMIN, UserRole.USER],
+        {error: "User role value must be ADMIN OR USER."}
+    ),
+    email: z.email({
+        error: "email is required & must be a valid email."
+    }),
+});
+
 
 export const UserValidation = {
-    userRegisterValidation
+    userRegisterValidation,
+    userRoleValidationSchema
 };
