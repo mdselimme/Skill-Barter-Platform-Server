@@ -135,6 +135,33 @@ Api Response Body:
 }
 ```
 
+**3. User Get By Id**
+
+- POST http://localhost:5000/api/v1/user/:id
+
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "id": "2fa56f87-3caf-4e1a-8295-b1d40dc5cf17",
+        "name": "Selim",
+        "email": "mdselimdev@gmail.com",
+        "role": "USER",
+        "phone": null,
+        "address": null,
+        "profileImg": null,
+        "credits": 10,
+        "isVerified": true,
+        "isActive": "ACTIVE"
+    },
+    "message": "Current User Retrieved Successfully",
+    "success": true
+}
+```
+
+
 #### Auth Api Endpoints
 
 **1. Login**
