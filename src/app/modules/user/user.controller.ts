@@ -51,10 +51,22 @@ const userRoleUpdate = catchAsync(async (req:Request, res:Response) => {
     });
 });
 
+//user status update controller
+const userStatusUpdate = catchAsync(async (req:Request, res:Response) => {
+    const result = await UserServices.userStatusUpdate(req.body);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User status updated Successfully.",
+        data: result,
+    });
+});
+
 
 export const UserControllers = {
     userRegistration,
     getMeUser,
     getUserByUserId,
-    userRoleUpdate
+    userRoleUpdate,
+    userStatusUpdate
 };

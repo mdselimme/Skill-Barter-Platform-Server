@@ -34,7 +34,9 @@ router.patch("/update-role",
 
 //update user status
 router.patch("/update-status",
-    validateZod
+    validateZodSchema(UserValidation.userStatusSchema),
+    checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+    UserControllers.userStatusUpdate
 )
 
 export const UserRoutes = router;

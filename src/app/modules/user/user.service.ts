@@ -119,9 +119,39 @@ const userRoleUpdate = async(payload: {role:Partial<UserRole>, email:string})=>{
     return result;
 };
 
+//User status update service
+const userStatusUpdate = async(payload: {status:UserStatus, email:string})=>{
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            email: payload.email,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    }
+    if(isUserExist.isActive === payload.status){
+        throw new ApiError(httpStatus.BAD_REQUEST, `User already have giving status.`);
+    }
+    const result = await prisma.user.update({
+        where:{
+            email:payload.email,
+        },
+        data: {
+            isActive:payload.status
+        },
+        select: {
+            isActive: true,
+            name: true,
+            email:true
+        }
+    });
+    return result;
+};
+
 export const UserServices = {
     userRegistration,
     getMeUser,
     getUserByUserId,
-    userRoleUpdate
+    userRoleUpdate,
+    userStatusUpdate,
 };

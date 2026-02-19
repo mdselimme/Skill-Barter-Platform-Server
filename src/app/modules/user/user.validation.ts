@@ -1,4 +1,4 @@
-import z, { email } from "zod";
+import z from "zod";
 import { UserRole, UserStatus } from "../auth/auth.interface";
 
 
