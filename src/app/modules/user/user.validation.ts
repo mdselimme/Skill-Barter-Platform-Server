@@ -1,5 +1,5 @@
-import z from "zod";
-import { UserRole } from "../auth/auth.interface";
+import z, { email } from "zod";
+import { UserRole, UserStatus } from "../auth/auth.interface";
 
 
 //user register validation
@@ -32,8 +32,20 @@ const userRoleValidationSchema = z.object({
     }),
 });
 
+//user role validation
+const userStatusSchema = z.object({
+    status: z.enum(
+        Object.values(UserStatus),
+        {error: "User status value must be ACTIVE, INACTIVE, DELETED OR BLOCKED."}
+    ),
+    email: z.email({
+        error: "email is required & must be a valid email."
+    }),
+});
+
 
 export const UserValidation = {
     userRegisterValidation,
-    userRoleValidationSchema
+    userRoleValidationSchema,
+    userStatusSchema
 };
