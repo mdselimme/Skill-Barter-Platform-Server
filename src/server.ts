@@ -5,6 +5,7 @@ import app from "./app";
 import { envVariables } from "./app/config/env.config";
 import { prisma } from "./app/utils/prisma";
 import { connectRedisClient } from "./app/config/redis.config";
+import seedSuperAdmin from "./app/utils/seedSuperAdmin";
 
 let server: Server;
 
@@ -21,28 +22,29 @@ const bootstrap = async () => {
     }
 };
 
-(async ()=>{
+(async () => {
     bootstrap()
-  .then(async () => {
-    console.log("database connected");
-      await prisma.$connect()
-    }).then(async () => {
-      await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  });
-  await connectRedisClient();
+        .then(async () => {
+            console.log("database connected");
+            await prisma.$connect()
+        }).then(async () => {
+            await prisma.$disconnect()
+        })
+        .catch(async (e) => {
+            console.error(e)
+            await prisma.$disconnect()
+            process.exit(1)
+        });
+    await seedSuperAdmin();
+    await connectRedisClient();
 })();
 
 
 //function to handle server shutdown
-const serverShutdown = async (message:string, err?:any) => {
+const serverShutdown = async (message: string, err?: any) => {
     console.log(`Message : ${message}. Server is closing.`, err || "");
-    if(server){
-        server.close(()=>{
+    if (server) {
+        server.close(() => {
             process.exit(1);
         })
     }
