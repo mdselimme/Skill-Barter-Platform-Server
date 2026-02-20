@@ -137,7 +137,7 @@ Api Response Body:
 
 **3. User Get By Id**
 
-- POST http://localhost:5000/api/v1/user/:id
+- GET http://localhost:5000/api/v1/user/:id
 
 Api Response Body:
 
@@ -157,6 +157,35 @@ Api Response Body:
         "isActive": "ACTIVE"
     },
     "message": "Current User Retrieved Successfully",
+    "success": true
+}
+```
+
+**4. Get All Users**
+
+- GET http://localhost:5000/api/v1/user
+
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": [
+        {
+            "id": "e39b314e-2996-4d6b-9a03-421c04417b80",
+            "name": "Selim",
+            "email": "mdselimdevone@gmail.com",
+            "role": "USER",
+            "phone": null,
+            "address": null,
+            "profileImg": null,
+            "credits": 10,
+            "isVerified": true,
+            "isActive": "ACTIVE"
+        },
+        ....
+    ],
+    "message": "All users retrieved successfully.",
     "success": true
 }
 ```
