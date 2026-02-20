@@ -148,10 +148,30 @@ const userStatusUpdate = async(payload: {status:UserStatus, email:string})=>{
     return result;
 };
 
+//get all users service
+const getAllUsers = async()=>{
+    const result = await prisma.user.findMany({
+        select:{
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            phone: true,
+            address: true,
+            profileImg: true,
+            credits: true,
+            isVerified: true,
+            isActive: true,
+        }
+    });
+    return result;
+};
+
 export const UserServices = {
     userRegistration,
     getMeUser,
     getUserByUserId,
     userRoleUpdate,
     userStatusUpdate,
+    getAllUsers,
 };

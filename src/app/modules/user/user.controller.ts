@@ -17,6 +17,17 @@ const userRegistration = catchAsync(async (req:Request, res:Response) => {
     });
 });
 
+//get all users controller
+const getAllUsers = catchAsync(async (req:Request, res:Response) => {
+    const result = await UserServices.getAllUsers();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "All users retrieved successfully.",
+        data: result,
+    });
+});
+
 //get me user controller
 const getMeUser = catchAsync(async (req:Request, res:Response) => {
     const result = await UserServices.getMeUser(req.user as IJwtToken);
@@ -68,5 +79,6 @@ export const UserControllers = {
     getMeUser,
     getUserByUserId,
     userRoleUpdate,
-    userStatusUpdate
+    userStatusUpdate,
+    getAllUsers,
 };
