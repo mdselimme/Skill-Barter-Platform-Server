@@ -190,6 +190,40 @@ Api Response Body:
 }
 ```
 
+**5. Update User role**
+
+- PATCH http://localhost:5000/api/v1/user/update-role
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Api Request Body:
+
+```json
+{
+    "email":"mdselimdevone@gmail.com",
+    "role": "ADMIN"
+}
+```
+
+**6. Update User Status**
+
+- PATCH http://localhost:5000/api/v1/user/update-status
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Api Request Body:
+
+```json
+{
+    "email":"mdselimdevone@gmail.com",
+    "status": "INACTIVE"
+}
+```
+
 
 #### Auth Api Endpoints
 
