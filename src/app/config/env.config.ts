@@ -27,7 +27,13 @@ interface IEnv {
         SUPER_ADMIN_NAME: string;
         SUPER_ADMIN_EMAIL: string;
         SUPER_ADMIN_PASS: string;
-    }
+    },
+    CLOUDINARY: {
+        CLOUDINARY_CLOUD_NAME: string;
+        CLOUDINARY_API_KEY: string;
+        CLOUDINARY_API_SECRET: string;
+        CLOUDINARY_SECRET: string;
+    };
 };
 
 const envVariable = (): IEnv => {
@@ -53,6 +59,10 @@ const envVariable = (): IEnv => {
         "SUPER_ADMIN_NAME",
         "SUPER_ADMIN_EMAIL",
         "SUPER_ADMIN_PASS",
+        "CLOUDINARY_CLOUD_NAME",
+        "CLOUDINARY_API_KEY",
+        "CLOUDINARY_API_SECRET",
+        "CLOUDINARY_SECRET"
     ];
 
     for (const env of requiredEnv) {
@@ -87,6 +97,12 @@ const envVariable = (): IEnv => {
             SUPER_ADMIN_NAME: process.env.SUPER_ADMIN_NAME as string,
             SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
             SUPER_ADMIN_PASS: process.env.SUPER_ADMIN_PASS as string,
+        },
+        CLOUDINARY: {
+            CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+            CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+            CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+            CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET as string,
         }
     }
 };
