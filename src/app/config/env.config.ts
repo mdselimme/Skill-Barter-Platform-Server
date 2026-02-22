@@ -33,7 +33,11 @@ interface IEnv {
         CLOUDINARY_API_KEY: string;
         CLOUDINARY_API_SECRET: string;
         CLOUDINARY_SECRET: string;
-    };
+    },
+    GOOGLE: {
+        CLIENT_SECRET: string;
+        CLIENT_ID: string;
+    }
 };
 
 const envVariable = (): IEnv => {
@@ -62,7 +66,9 @@ const envVariable = (): IEnv => {
         "CLOUDINARY_CLOUD_NAME",
         "CLOUDINARY_API_KEY",
         "CLOUDINARY_API_SECRET",
-        "CLOUDINARY_SECRET"
+        "CLOUDINARY_SECRET",
+        "CLIENT_SECRET",
+        "CLIENT_ID"
     ];
 
     for (const env of requiredEnv) {
@@ -103,6 +109,10 @@ const envVariable = (): IEnv => {
             CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
             CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
             CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET as string,
+        },
+        GOOGLE: {
+            CLIENT_SECRET: process.env.CLIENT_SECRET as string,
+            CLIENT_ID: process.env.CLIENT_ID as string,
         }
     }
 };
