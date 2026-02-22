@@ -10,6 +10,8 @@ interface IEnv {
     JWT_ACCESS_EXPIRES: string;
     JWT_REFRESH_SECRET: string;
     JWT_REFRESH_EXPIRES: string;
+    FRONTEND_URL: string;
+    EXPRESS_SESSION_SECRET: string;
     SMTP: {
         SMTP_USER: string;
         SMTP_PASS: string;
@@ -37,6 +39,7 @@ interface IEnv {
     GOOGLE: {
         CLIENT_SECRET: string;
         CLIENT_ID: string;
+        CALLBACK_URL: string;
     }
 };
 
@@ -46,6 +49,7 @@ const envVariable = (): IEnv => {
         "PORT",
         "NODE_ENV",
         "DATABASE_URL",
+        "EXPRESS_SESSION_SECRET",
         "PASSWORD_HASH_SALT",
         "JWT_ACCESS_SECRET",
         "JWT_ACCESS_EXPIRES",
@@ -68,7 +72,9 @@ const envVariable = (): IEnv => {
         "CLOUDINARY_API_SECRET",
         "CLOUDINARY_SECRET",
         "CLIENT_SECRET",
-        "CLIENT_ID"
+        "CLIENT_ID",
+        "CALLBACK_URL",
+        "FRONTEND_URL",
     ];
 
     for (const env of requiredEnv) {
@@ -82,9 +88,11 @@ const envVariable = (): IEnv => {
         NODE_ENV: process.env.NODE_ENV as "development" | "production",
         DATABASE_URL: process.env.DATABASE_URL as string,
         PASSWORD_HASH_SALT: Number(process.env.PASSWORD_HASH_SALT),
+        EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
         JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
         JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
+        FRONTEND_URL: process.env.FRONTEND_URL as string,
         JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
         SMTP: {
             SMTP_USER: process.env.SMTP_USER as string,
@@ -113,6 +121,7 @@ const envVariable = (): IEnv => {
         GOOGLE: {
             CLIENT_SECRET: process.env.CLIENT_SECRET as string,
             CLIENT_ID: process.env.CLIENT_ID as string,
+            CALLBACK_URL: process.env.CALLBACK_URL as string,
         }
     }
 };
