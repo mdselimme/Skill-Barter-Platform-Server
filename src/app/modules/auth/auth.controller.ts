@@ -56,7 +56,7 @@ const googleAuthCallback = catchAsync(async (req: Request, res: Response) => {
         refreshToken
     });
 
-    res.redirect(`${process.env.FRONTEND_URL}`);
+    res.redirect(`${process.env.FRONTEND_URL}/${redirectTo}`);
 });
 
 //change password controller
