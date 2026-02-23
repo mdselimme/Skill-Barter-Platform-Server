@@ -25,7 +25,7 @@ const userRegisterValidation = z.object({
 const userRoleValidationSchema = z.object({
     role: z.enum(
         [UserRole.ADMIN, UserRole.USER],
-        {error: "User role value must be ADMIN OR USER."}
+        { error: "User role value must be ADMIN OR USER." }
     ),
     email: z.email({
         error: "email is required & must be a valid email."
@@ -36,16 +36,32 @@ const userRoleValidationSchema = z.object({
 const userStatusSchema = z.object({
     status: z.enum(
         Object.values(UserStatus),
-        {error: "User status value must be ACTIVE, INACTIVE, DELETED OR BLOCKED."}
+        { error: "User status value must be ACTIVE, INACTIVE, DELETED OR BLOCKED." }
     ),
     email: z.email({
         error: "email is required & must be a valid email."
     }),
 });
 
+//user profile update validation
+const userProfileUpdateValidationSchema = z.object({
+    name: z.string({
+        error: "name must be a string."
+    })
+        .min(3, "name must be at least 3 characters long.")
+        .optional(),
+    address: z.string({
+        error: "address must be a string."
+    }).optional(),
+    phone: z.string({
+        error: "phone must be a string."
+    }).optional(),
+});
+
 
 export const UserValidation = {
     userRegisterValidation,
     userRoleValidationSchema,
-    userStatusSchema
+    userStatusSchema,
+    userProfileUpdateValidationSchema
 };

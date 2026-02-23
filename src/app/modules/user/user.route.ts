@@ -9,7 +9,7 @@ import { UserRole } from "../auth/auth.interface";
 const router = Router();
 
 //user register
-router.post("/register", 
+router.post("/register",
     validateZodSchema(UserValidation.userRegisterValidation),
     UserControllers.userRegistration
 );
@@ -21,7 +21,7 @@ router.get("/",
 )
 
 //get me user
-router.get("/me", 
+router.get("/me",
     checkAuth(...Object.values(UserRole)),
     UserControllers.getMeUser
 );
@@ -43,6 +43,13 @@ router.patch("/update-status",
     validateZodSchema(UserValidation.userStatusSchema),
     checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
     UserControllers.userStatusUpdate
+);
+
+//update user profile
+router.patch("/me",
+    validateZodSchema(UserValidation.userProfileUpdateValidationSchema),
+    checkAuth(...Object.values(UserRole)),
+    UserControllers.userProfileUpdate
 )
 
 export const UserRoutes = router;
