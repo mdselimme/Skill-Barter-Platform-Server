@@ -4,12 +4,13 @@ import { validateZodSchema } from "../../middleware/validateZodSchema";
 import { UserControllers } from "./user.controller";
 import checkAuth from "../../middleware/checkAuth";
 import { UserRole } from "../auth/auth.interface";
+import { multerUpload } from "../../config/multer.config";
 
 
 const router = Router();
 
 //user register
-router.post("/register", 
+router.post("/register",
     validateZodSchema(UserValidation.userRegisterValidation),
     UserControllers.userRegistration
 );
@@ -21,7 +22,7 @@ router.get("/",
 )
 
 //get me user
-router.get("/me", 
+router.get("/me",
     checkAuth(...Object.values(UserRole)),
     UserControllers.getMeUser
 );
@@ -43,6 +44,20 @@ router.patch("/update-status",
     validateZodSchema(UserValidation.userStatusSchema),
     checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
     UserControllers.userStatusUpdate
-)
+);
+
+//update user profile
+router.patch("/me",
+    validateZodSchema(UserValidation.userProfileUpdateValidationSchema),
+    checkAuth(...Object.values(UserRole)),
+    UserControllers.userProfileUpdate
+);
+
+//update user profile photo
+router.patch("/me/profile-photo",
+    checkAuth(...Object.values(UserRole)),
+    multerUpload.single("file"),
+    UserControllers.userProfilePhotoUpdate
+);
 
 export const UserRoutes = router;

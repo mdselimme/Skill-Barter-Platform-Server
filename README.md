@@ -87,10 +87,10 @@ REDIS_USERNAME=
 REDIS_PASSWORD=
 
 # CLOUDINARY CONFIG
-CLOUDINARY_CLOUD_NAME
-CLOUDINARY_API_KEY
-CLOUDINARY_API_SECRET
-CLOUDINARY_SECRET
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_SECRET=
 
 ```
 
@@ -125,7 +125,21 @@ Register Request Body:
 }
 ```
 
-**2. Current User Get**
+**2. User Update**
+
+- PATCH http://localhost:5000/api/v1/user/me
+
+Update Request Body:
+
+```json
+{
+    "name": "Abdul",
+    "phone": "01737210235",
+    "address": "Dhaka"
+}
+```
+
+**3. Current User Get**
 
 - GET http://localhost:5000/api/v1/user/me
 
@@ -153,7 +167,7 @@ Api Response Body:
 }
 ```
 
-**3. User Get By Id**
+**4. User Get By Id**
 
 - GET http://localhost:5000/api/v1/user/:id
 
@@ -179,7 +193,7 @@ Api Response Body:
 }
 ```
 
-**4. Get All Users**
+**5. Get All Users**
 
 - GET http://localhost:5000/api/v1/user
 
@@ -208,7 +222,7 @@ Api Response Body:
 }
 ```
 
-**5. Update User role**
+**6. Update User role**
 
 - PATCH http://localhost:5000/api/v1/user/update-role
 
@@ -225,7 +239,7 @@ Api Request Body:
 }
 ```
 
-**6. Update User Status**
+**7. Update User Status**
 
 - PATCH http://localhost:5000/api/v1/user/update-status
 
@@ -239,6 +253,34 @@ Api Request Body:
 {
     "email":"mdselimdevone@gmail.com",
     "status": "INACTIVE"
+}
+```
+
+**8. Update User Profile Photo**
+
+- PATCH http://localhost:5000/api/v1/user/me/profile-photo
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN, USER
+
+Form Data with file field: 
+
+- Key: file
+
+- support file type: png, jpg, jpeg, webp
+
+
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "profileImg": "https://res.cloudinary.com/dsla2viks/image/upload/v1771875254/2e8vasw9pa6_1771875251002_black-sweter-png.png.png"
+    },
+    "message": "User profile photo updated Successfully.",
+    "success": true
 }
 ```
 

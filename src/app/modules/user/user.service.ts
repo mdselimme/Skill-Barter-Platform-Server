@@ -2,9 +2,10 @@ import { prisma } from "../../utils/prisma";
 import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma, User } from "../../../../generated/prisma";
 import { IJwtToken } from "../../types/token.types";
 import { UserRole, UserStatus } from "../auth/auth.interface";
+import { deleteFromCloudinary } from "../../config/cloudinary.config";
 
 
 //user registration service
@@ -18,21 +19,51 @@ const userRegistration = async (payload: Prisma.UserCreateInput) => {
     if (isUserExists) {
         throw new ApiError(httpStatus.BAD_REQUEST, "User already exists");
     }
-    const passwordHash = await bcrypt.hash(payload.password, 10);
+    const passwordHash = await bcrypt.hash(payload.password as string, 10);
     const userData = {
         ...payload,
-        password:passwordHash
+        password: passwordHash
     }
     //create user
     const result = await prisma.user.create({
         data: userData,
-        select:{
+        select: {
             id: true,
             name: true,
             email: true,
             role: true,
             isVerified: true,
             isActive: true,
+        }
+    });
+    return result;
+};
+
+//update user profile photo service
+const userProfilePhotoUpdate = async (profilePhoto: string, user: IJwtToken) => {
+    if (!profilePhoto) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Profile photo is required.");
+    }
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            id: user.id,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    };
+    if (isUserExist.profileImg && isUserExist.profileImg.includes("cloudinary")) {
+        await deleteFromCloudinary(isUserExist.profileImg);
+    };
+    const result = await prisma.user.update({
+        where: {
+            id: user.id,
+        },
+        data: {
+            profileImg: profilePhoto,
+        },
+        select: {
+            profileImg: true,
         }
     });
     return result;
@@ -45,7 +76,7 @@ const getMeUser = async (user: IJwtToken
         where: {
             id: user.id
         },
-        select:{
+        select: {
             id: true,
             name: true,
             email: true,
@@ -71,7 +102,7 @@ const getUserByUserId = async (id: string
         where: {
             id: id
         },
-        select:{
+        select: {
             id: true,
             name: true,
             email: true,
@@ -88,7 +119,7 @@ const getUserByUserId = async (id: string
 };
 
 //User role update service
-const userRoleUpdate = async(payload: {role:Partial<UserRole>, email:string})=>{
+const userRoleUpdate = async (payload: { role: Partial<UserRole>, email: string }) => {
     const isUserExist = await prisma.user.findUnique({
         where: {
             email: payload.email,
@@ -97,30 +128,30 @@ const userRoleUpdate = async(payload: {role:Partial<UserRole>, email:string})=>{
     if (!isUserExist) {
         throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
     }
-    if(isUserExist.isActive !== UserStatus.ACTIVE){
+    if (isUserExist.isActive !== UserStatus.ACTIVE) {
         throw new ApiError(httpStatus.BAD_REQUEST, `User status is ${isUserExist.isActive}`);
     }
-    if(!isUserExist.isVerified){
+    if (!isUserExist.isVerified) {
         throw new ApiError(httpStatus.BAD_REQUEST, "User is not verified.");
     }
     const result = await prisma.user.update({
-        where:{
-            email:payload.email,
+        where: {
+            email: payload.email,
         },
         data: {
-            role:payload.role
+            role: payload.role
         },
         select: {
             role: true,
             name: true,
-            email:true
+            email: true
         }
     });
     return result;
 };
 
 //User status update service
-const userStatusUpdate = async(payload: {status:UserStatus, email:string})=>{
+const userStatusUpdate = async (payload: { status: UserStatus, email: string }) => {
     const isUserExist = await prisma.user.findUnique({
         where: {
             email: payload.email,
@@ -129,29 +160,29 @@ const userStatusUpdate = async(payload: {status:UserStatus, email:string})=>{
     if (!isUserExist) {
         throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
     }
-    if(isUserExist.isActive === payload.status){
+    if (isUserExist.isActive === payload.status) {
         throw new ApiError(httpStatus.BAD_REQUEST, `User already have giving status.`);
     }
     const result = await prisma.user.update({
-        where:{
-            email:payload.email,
+        where: {
+            email: payload.email,
         },
         data: {
-            isActive:payload.status
+            isActive: payload.status
         },
         select: {
             isActive: true,
             name: true,
-            email:true
+            email: true
         }
     });
     return result;
 };
 
 //get all users service
-const getAllUsers = async()=>{
+const getAllUsers = async () => {
     const result = await prisma.user.findMany({
-        select:{
+        select: {
             id: true,
             name: true,
             email: true,
@@ -167,6 +198,30 @@ const getAllUsers = async()=>{
     return result;
 };
 
+//user profile update service
+const userProfileUpdate = async (payload: Partial<User>, user: IJwtToken) => {
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            id: user.id,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    };
+    const result = await prisma.user.update({
+        where: {
+            id: user.id,
+        },
+        data: payload,
+        select: {
+            id: true,
+            name: true,
+        }
+    });
+    return result;
+};
+
+
 export const UserServices = {
     userRegistration,
     getMeUser,
@@ -174,4 +229,6 @@ export const UserServices = {
     userRoleUpdate,
     userStatusUpdate,
     getAllUsers,
+    userProfileUpdate,
+    userProfilePhotoUpdate,
 };

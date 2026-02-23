@@ -7,7 +7,7 @@ import { IJwtToken } from '../../types/token.types';
 
 
 //user registration controller
-const userRegistration = catchAsync(async (req:Request, res:Response) => {
+const userRegistration = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.userRegistration(req.body);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -18,7 +18,7 @@ const userRegistration = catchAsync(async (req:Request, res:Response) => {
 });
 
 //get all users controller
-const getAllUsers = catchAsync(async (req:Request, res:Response) => {
+const getAllUsers = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.getAllUsers();
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -29,7 +29,7 @@ const getAllUsers = catchAsync(async (req:Request, res:Response) => {
 });
 
 //get me user controller
-const getMeUser = catchAsync(async (req:Request, res:Response) => {
+const getMeUser = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.getMeUser(req.user as IJwtToken);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -40,7 +40,7 @@ const getMeUser = catchAsync(async (req:Request, res:Response) => {
 });
 
 //get user by user id controller
-const getUserByUserId = catchAsync(async (req:Request, res:Response) => {
+const getUserByUserId = catchAsync(async (req: Request, res: Response) => {
     const id = req.params.id;
     const result = await UserServices.getUserByUserId(id as string);
     sendResponse(res, {
@@ -52,7 +52,7 @@ const getUserByUserId = catchAsync(async (req:Request, res:Response) => {
 });
 
 //user role update controller
-const userRoleUpdate = catchAsync(async (req:Request, res:Response) => {
+const userRoleUpdate = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.userRoleUpdate(req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -63,12 +63,35 @@ const userRoleUpdate = catchAsync(async (req:Request, res:Response) => {
 });
 
 //user status update controller
-const userStatusUpdate = catchAsync(async (req:Request, res:Response) => {
+const userStatusUpdate = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.userStatusUpdate(req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: "User status updated Successfully.",
+        data: result,
+    });
+});
+
+//user profile update controller
+const userProfileUpdate = catchAsync(async (req: Request, res: Response) => {
+    const result = await UserServices.userProfileUpdate(req.body, req.user as IJwtToken);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User profile updated Successfully.",
+        data: result,
+    });
+});
+
+//user profile photo update controller
+const userProfilePhotoUpdate = catchAsync(async (req: Request, res: Response) => {
+    const profilePhoto = req.file?.path;
+    const result = await UserServices.userProfilePhotoUpdate(profilePhoto as string, req.user as IJwtToken);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User profile photo updated Successfully.",
         data: result,
     });
 });
@@ -80,5 +103,7 @@ export const UserControllers = {
     getUserByUserId,
     userRoleUpdate,
     userStatusUpdate,
+    userProfileUpdate,
     getAllUsers,
+    userProfilePhotoUpdate,
 };
