@@ -136,6 +136,15 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerId: 'providerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   rating: 'rating',
@@ -201,6 +210,11 @@ exports.Status = exports.$Enums.Status = {
   BLOCKED: 'BLOCKED'
 };
 
+exports.AuthProvider = exports.$Enums.AuthProvider = {
+  LOCAL: 'LOCAL',
+  GOOGLE: 'GOOGLE'
+};
+
 exports.SessionStatus = exports.$Enums.SessionStatus = {
   PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
@@ -221,6 +235,7 @@ exports.SkillLevel = exports.$Enums.SkillLevel = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Account: 'Account',
   Review: 'Review',
   BarterSession: 'BarterSession',
   Skill: 'Skill',

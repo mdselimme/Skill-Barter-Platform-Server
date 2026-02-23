@@ -56,6 +56,13 @@ DATABASE_URL=
 
 PASSWORD_HASH_SALT=
 
+FRONTEND_URL=
+
+# GOOGLE lOGIN 
+CLIENT_SECRET=
+CLIENT_ID=
+CALLBACK_URL=
+
 #SUPER ADMIN CREDENTIALS
 SUPER_ADMIN_NAME=
 SUPER_ADMIN_EMAIL=
@@ -67,7 +74,7 @@ JWT_ACCESS_EXPIRES=
 JWT_REFRESH_SECRET=
 JWT_REFRESH_EXPIRES=
 
-#SMTP EMAIL TRANSPORTER
+# SMTP EMAIL TRANSPORTER
 SMTP_USER=
 SMTP_PASS=
 SMTP_PORT=
@@ -78,6 +85,12 @@ REDIS_HOST=
 REDIS_PORT=
 REDIS_USERNAME=
 REDIS_PASSWORD=
+
+# CLOUDINARY CONFIG
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+CLOUDINARY_SECRET
 
 ```
 
@@ -238,16 +251,14 @@ Api Request Body:
 
 - credentials: true
 
-Login Request Body:
+**2. Google Authentication**
 
-```json
-{
-  "email": "john.doe@example.com",
-  "password": "password123"
-}
-```
+- GET http://localhost:5000/api/v1/auth/google
 
-**2. Email Verify Email Send**
+- credentials: true
+
+
+**3. Email Verify Email Send**
 
 - POST http://localhost:5000/api/v1/auth/verify-email
 
@@ -259,7 +270,7 @@ Email Verify Email Send Request Body:
 }
 ```
 
-**3. Verify Email By OTP**
+**4. Verify Email By OTP**
 
 - POST http://localhost:5000/api/v1/auth/verify-email-code
 
@@ -274,7 +285,7 @@ Verify Email By OTP Request Body:
 }
 ```
 
-**4. Change Password**
+**5. Change Password**
 
 - PATCH http://localhost:5000/api/v1/auth/change-password
 
@@ -289,7 +300,7 @@ Change Password Request Body:
 }
 ```
 
-**5. Refresh Token**
+**6. Refresh Token**
 
 - POST http://localhost:5000/api/v1/auth/refresh-token
 
@@ -309,7 +320,7 @@ Refresh Token Response Body:
 }
 ```
 
-**6. Logout**
+**7. Logout**
 
 - POST http://localhost:5000/api/v1/auth/logout
 

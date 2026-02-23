@@ -10,6 +10,8 @@ interface IEnv {
     JWT_ACCESS_EXPIRES: string;
     JWT_REFRESH_SECRET: string;
     JWT_REFRESH_EXPIRES: string;
+    FRONTEND_URL: string;
+    EXPRESS_SESSION_SECRET: string;
     SMTP: {
         SMTP_USER: string;
         SMTP_PASS: string;
@@ -27,6 +29,17 @@ interface IEnv {
         SUPER_ADMIN_NAME: string;
         SUPER_ADMIN_EMAIL: string;
         SUPER_ADMIN_PASS: string;
+    },
+    CLOUDINARY: {
+        CLOUDINARY_CLOUD_NAME: string;
+        CLOUDINARY_API_KEY: string;
+        CLOUDINARY_API_SECRET: string;
+        CLOUDINARY_SECRET: string;
+    },
+    GOOGLE: {
+        CLIENT_SECRET: string;
+        CLIENT_ID: string;
+        CALLBACK_URL: string;
     }
 };
 
@@ -36,6 +49,7 @@ const envVariable = (): IEnv => {
         "PORT",
         "NODE_ENV",
         "DATABASE_URL",
+        "EXPRESS_SESSION_SECRET",
         "PASSWORD_HASH_SALT",
         "JWT_ACCESS_SECRET",
         "JWT_ACCESS_EXPIRES",
@@ -53,6 +67,14 @@ const envVariable = (): IEnv => {
         "SUPER_ADMIN_NAME",
         "SUPER_ADMIN_EMAIL",
         "SUPER_ADMIN_PASS",
+        "CLOUDINARY_CLOUD_NAME",
+        "CLOUDINARY_API_KEY",
+        "CLOUDINARY_API_SECRET",
+        "CLOUDINARY_SECRET",
+        "CLIENT_SECRET",
+        "CLIENT_ID",
+        "CALLBACK_URL",
+        "FRONTEND_URL",
     ];
 
     for (const env of requiredEnv) {
@@ -66,9 +88,11 @@ const envVariable = (): IEnv => {
         NODE_ENV: process.env.NODE_ENV as "development" | "production",
         DATABASE_URL: process.env.DATABASE_URL as string,
         PASSWORD_HASH_SALT: Number(process.env.PASSWORD_HASH_SALT),
+        EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
         JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
         JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
+        FRONTEND_URL: process.env.FRONTEND_URL as string,
         JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
         SMTP: {
             SMTP_USER: process.env.SMTP_USER as string,
@@ -87,6 +111,17 @@ const envVariable = (): IEnv => {
             SUPER_ADMIN_NAME: process.env.SUPER_ADMIN_NAME as string,
             SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
             SUPER_ADMIN_PASS: process.env.SUPER_ADMIN_PASS as string,
+        },
+        CLOUDINARY: {
+            CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+            CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+            CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+            CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET as string,
+        },
+        GOOGLE: {
+            CLIENT_SECRET: process.env.CLIENT_SECRET as string,
+            CLIENT_ID: process.env.CLIENT_ID as string,
+            CALLBACK_URL: process.env.CALLBACK_URL as string,
         }
     }
 };
