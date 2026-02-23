@@ -11,6 +11,7 @@ cloudinary.config({
     api_secret: envVariables.CLOUDINARY.CLOUDINARY_API_SECRET
 });
 
+//upload file to cloudinary
 export const uploadToCloudinary = async (buffer: Buffer, fileName: string) => {
     try {
         return new Promise((resolve, reject) => {
@@ -35,6 +36,20 @@ export const uploadToCloudinary = async (buffer: Buffer, fileName: string) => {
         });
     } catch (error: any) {
         throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to upload image to Cloudinary", error);
+    }
+};
+
+//delete file from cloudinary
+export const deleteFromCloudinary = async (url: string) => {
+    try {
+        const regex = /\/v\d+\/(.*?)\.(jpg|jpeg|png|gif|webp)$/i;
+        const match = url.match(regex);
+        if (match && match[1]) {
+            const public_id = match[1];
+            await cloudinary.uploader.destroy(public_id);
+        }
+    } catch (error: any) {
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to delete image from Cloudinary", error);
     }
 };
 
