@@ -6,31 +6,40 @@ import { envVariables } from "../config/env.config";
 import { ZodError } from "zod";
 import { handleZodError } from "../errorHelpers/zodErrorHelpers";
 import { IErrorSource } from "../types/error.types";
+import { deleteFromCloudinary } from "../config/cloudinary.config";
 
 
 
-const globalErrorHandler = async (err:any, req:Request, res:Response, next:NextFunction) => {
+const globalErrorHandler = async (err: any, req: Request, res: Response, next: NextFunction) => {
 
-    if(envVariables.NODE_ENV === "development"){
+    //log error in development environment
+    if (envVariables.NODE_ENV === "development") {
         console.log("Error:", err);
     }
+
+    //delete uploaded file from cloudinary if error occurs
+    if (req.file) {
+        if (req.file.path && req.file.path.includes("cloudinary")) {
+            await deleteFromCloudinary(req.file.path);
+        };
+    };
 
     let statusCode = 500;
     let message = "Something went wrong";
     let errorSources: IErrorSource[] = [];
 
     //handle zod validation error
-    if(err.name === "ZodError"){
+    if (err.name === "ZodError") {
         const simplifiedError = handleZodError(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorSources = simplifiedError.errorSources;
     }
-    else if(err instanceof Error){
+    else if (err instanceof Error) {
         statusCode = 500
         message = err.message
     }
-    
+
 
     res.status(statusCode).json({
         success: false,
