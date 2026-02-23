@@ -256,6 +256,34 @@ Api Request Body:
 }
 ```
 
+**8. Update User Profile Photo**
+
+- PATCH http://localhost:5000/api/v1/user/me/profile-photo
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN, USER
+
+Form Data with file field: 
+
+- Key: file
+
+- support file type: png, jpg, jpeg, webp
+
+
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "profileImg": "https://res.cloudinary.com/dsla2viks/image/upload/v1771875254/2e8vasw9pa6_1771875251002_black-sweter-png.png.png"
+    },
+    "message": "User profile photo updated Successfully.",
+    "success": true
+}
+```
+
 
 #### Auth Api Endpoints
 
