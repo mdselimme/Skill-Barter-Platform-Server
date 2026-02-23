@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { Prisma, User } from "../../../../generated/prisma";
 import { IJwtToken } from "../../types/token.types";
 import { UserRole, UserStatus } from "../auth/auth.interface";
+import { deleteFromCloudinary } from "../../config/cloudinary.config";
 
 
 //user registration service
@@ -33,6 +34,36 @@ const userRegistration = async (payload: Prisma.UserCreateInput) => {
             role: true,
             isVerified: true,
             isActive: true,
+        }
+    });
+    return result;
+};
+
+//update user profile photo service
+const userProfilePhotoUpdate = async (profilePhoto: string, user: IJwtToken) => {
+    if (!profilePhoto) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Profile photo is required.");
+    }
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            id: user.id,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    };
+    if (isUserExist.profileImg && isUserExist.profileImg.includes("cloudinary")) {
+        await deleteFromCloudinary(isUserExist.profileImg);
+    };
+    const result = await prisma.user.update({
+        where: {
+            id: user.id,
+        },
+        data: {
+            profileImg: profilePhoto,
+        },
+        select: {
+            profileImg: true,
         }
     });
     return result;
@@ -199,4 +230,5 @@ export const UserServices = {
     userStatusUpdate,
     getAllUsers,
     userProfileUpdate,
+    userProfilePhotoUpdate,
 };

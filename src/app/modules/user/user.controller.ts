@@ -84,6 +84,18 @@ const userProfileUpdate = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+//user profile photo update controller
+const userProfilePhotoUpdate = catchAsync(async (req: Request, res: Response) => {
+    const profilePhoto = req.file?.path;
+    const result = await UserServices.userProfilePhotoUpdate(profilePhoto as string, req.user as IJwtToken);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User profile photo updated Successfully.",
+        data: result,
+    });
+});
+
 
 export const UserControllers = {
     userRegistration,
@@ -93,4 +105,5 @@ export const UserControllers = {
     userStatusUpdate,
     userProfileUpdate,
     getAllUsers,
+    userProfilePhotoUpdate,
 };
