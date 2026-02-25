@@ -109,7 +109,18 @@ const verifyEmailCode = catchAsync(async (req: Request, res: Response) => {
         data: result,
         message: "Email verification code verified successfully."
     })
-})
+});
+
+//password reset email send controller
+const passwordResetEmailSend = catchAsync(async (req: Request, res: Response) => {
+    await AuthServices.passwordResetEmailSend(req.body)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: null,
+        message: "Password reset email sent successfully."
+    })
+});
 
 //user logout controller
 const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
@@ -144,5 +155,6 @@ export const AuthController = {
     authLogoutUser,
     googleAuthCallback,
     verifyEmailSend,
-    verifyEmailCode
+    verifyEmailCode,
+    passwordResetEmailSend
 }
