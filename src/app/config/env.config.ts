@@ -10,6 +10,7 @@ interface IEnv {
     JWT_ACCESS_EXPIRES: string;
     JWT_REFRESH_SECRET: string;
     JWT_REFRESH_EXPIRES: string;
+    JWT_RESET_PASS_EXPIRES: string;
     FRONTEND_URL: string;
     EXPRESS_SESSION_SECRET: string;
     SMTP: {
@@ -75,6 +76,7 @@ const envVariable = (): IEnv => {
         "CLIENT_ID",
         "CALLBACK_URL",
         "FRONTEND_URL",
+        "JWT_RESET_PASS_EXPIRES"
     ];
 
     for (const env of requiredEnv) {
@@ -93,6 +95,7 @@ const envVariable = (): IEnv => {
         JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
         FRONTEND_URL: process.env.FRONTEND_URL as string,
+        JWT_RESET_PASS_EXPIRES: process.env.JWT_RESET_PASS_EXPIRES as string,
         JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
         SMTP: {
             SMTP_USER: process.env.SMTP_USER as string,

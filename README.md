@@ -378,3 +378,55 @@ Logout Response Body:
   "success": true
 }
 ```
+
+**8. Password Reset Email**
+
+- POST http://localhost:5000/api/v1/auth/password-reset-email
+
+- role: USER, ADMIN, SUPER_ADMIN
+
+Password Reset Email Request Body:
+
+```json
+{
+  "email": "example@gmail.com"
+}
+```
+
+Password Reset Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": null,
+    "message": "Password reset email sent successfully.",
+    "success": true
+}
+```
+
+**9. Reset Password**
+
+- POST http://localhost:5000/api/v1/auth/reset-password
+
+- role: USER, ADMIN, SUPER_ADMIN
+
+Password Reset Request Body:
+
+```json
+{
+    "email":"mdselimdevone@gmail.com",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "newPassword": "Ss@12345"
+}
+```
+
+Password Reset Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": null,
+    "message": "Password reset successfully.",
+    "success": true
+}
+```
