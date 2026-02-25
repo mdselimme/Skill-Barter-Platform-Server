@@ -63,6 +63,12 @@ router.post("/password-reset-email",
     AuthController.passwordResetEmailSend
 );
 
+//password reset router
+router.post("/reset-password",
+    validateZodSchema(AuthValidation.passwordResetDataValidation),
+    AuthController.passwordReset
+);
+
 //refresh token router
 router.post("/refresh-token",
     AuthController.refreshToken

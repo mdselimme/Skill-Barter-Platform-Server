@@ -122,6 +122,17 @@ const passwordResetEmailSend = catchAsync(async (req: Request, res: Response) =>
     })
 });
 
+//password reset controller
+const passwordReset = catchAsync(async (req: Request, res: Response) => {
+    await AuthServices.passwordReset(req.body)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: null,
+        message: "Password reset successfully."
+    })
+});
+
 //user logout controller
 const authLogoutUser = catchAsync(async (req: Request, res: Response) => {
 
@@ -156,5 +167,6 @@ export const AuthController = {
     googleAuthCallback,
     verifyEmailSend,
     verifyEmailCode,
-    passwordResetEmailSend
+    passwordResetEmailSend,
+    passwordReset
 }

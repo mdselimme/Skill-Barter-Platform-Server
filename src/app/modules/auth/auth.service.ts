@@ -216,6 +216,38 @@ const passwordResetEmailSend = async (payload: { email: string }) => {
     }
 };
 
+//password reset service
+const passwordReset = async (payload: { email: string, token: string, newPassword: string }) => {
+    const result = await prisma.user.findUnique({
+        where: {
+            email: payload.email,
+        },
+    });
+    if (!result) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    if (result.isActive !== UserStatus.ACTIVE) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "User is not active");
+    }
+    const decoded = verifyToken(payload.token, envVariables.JWT_ACCESS_SECRET);
+    if (!decoded || decoded.email !== payload.email) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Invalid or expired token");
+    }
+    const hashedPassword = await bcrypt.hash(payload.newPassword, envVariables.PASSWORD_HASH_SALT);
+    await prisma.user.update({
+        where: {
+            email: payload.email,
+        },
+        data: {
+            password: hashedPassword,
+        },
+    });
+
+    return {
+        message: "Password reset successfully."
+    }
+};
+
 
 export const AuthServices = {
     authLoginUser,
@@ -223,5 +255,6 @@ export const AuthServices = {
     refreshToken,
     verifyEmailSend,
     verifyEmailCode,
-    passwordResetEmailSend
+    passwordResetEmailSend,
+    passwordReset
 }
