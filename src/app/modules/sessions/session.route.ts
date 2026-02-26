@@ -12,7 +12,7 @@ const router = Router();
 router.post("/add",
     checkAuth(UserRole.USER),
     validateZodSchema(SessionValidation.addSessionZodSchema),
-    SessionController.addSession
+    SessionController.createASession
 )
 
 
