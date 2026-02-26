@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserRoutes } from "../modules/user/user.route";
 import { AuthRoutes } from "../modules/auth/auth.route";
-import { skillsRoutes } from "../modules/skills/skills.route";
+import { sessionRoutes } from "../modules/sessions/session.route";
 
 interface IRoute {
     path: string;
@@ -20,8 +20,8 @@ const moduleRoutes: IRoute[] = [
         route: AuthRoutes
     },
     {
-        path: "/skills",
-        route: skillsRoutes
+        path: "/session",
+        route: sessionRoutes
     }
 ];
 
