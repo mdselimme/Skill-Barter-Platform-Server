@@ -20,7 +20,36 @@ const createASkill = async (payload: Prisma.SkillCreateInput) => {
     return result;
 };
 
+//skill update service
+const updateASkill = async (skillId: string, payload: Prisma.SkillUpdateInput) => {
+
+    const skillsNames = await prisma.skill.findUnique({
+        where: {
+            name: payload.name as string,
+        },
+    });
+    if (skillsNames) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Skill already exists.");
+    }
+    const existingSkill = await prisma.skill.findUnique({
+        where: {
+            id: skillId,
+        },
+    });
+    if (!existingSkill) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Skill not found.");
+    }
+    const result = await prisma.skill.update({
+        where: {
+            id: skillId,
+        },
+        data: payload,
+    });
+    return result;
+};
+
 
 export const SkillsService = {
-    createASkill
+    createASkill,
+    updateASkill
 };

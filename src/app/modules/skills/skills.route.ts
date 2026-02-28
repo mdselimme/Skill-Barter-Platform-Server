@@ -14,5 +14,12 @@ router.post("/create",
     SkillsController.createASkill
 );
 
+//skill update route
+router.patch("/:id",
+    checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+    validateZodSchema(SkillsValidation.skillCreateZodSchema),
+    SkillsController.updateASkill
+);
+
 
 export const SkillsRoutes = router;
