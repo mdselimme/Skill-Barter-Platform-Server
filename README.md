@@ -456,6 +456,7 @@ Create Skill Request Body:
   "name": "JavaScript Programming",
 }
 ```
+
 **2. Update Skill**
 
 - PATCH http://localhost:5000/api/v1/skills/:id
@@ -469,5 +470,54 @@ Update Skill Request Body:
 ```json
 {
   "name": "JavaScript Programming",
+}
+```
+
+**3. Delete Skill**
+
+- DELETE http://localhost:5000/api/v1/skills/:id
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Delete Skill Response Body:
+
+```json
+{
+  "statusCode": 200,
+  "data": null,
+  "message": "Skill deleted successfully.",
+  "success": true
+}
+```
+
+**4. Get All Skills**
+
+- GET http://localhost:5000/api/v1/skills
+
+- credentials: true
+
+Get All Skills Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": [
+        {
+            "id": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+            "name": "React Js",
+            "createdAt": "2026-02-28T08:15:32.036Z",
+            "updatedAt": "2026-02-28T08:15:32.036Z"
+        },
+        {
+            "id": "f5827713-4ba1-4e5d-92d2-c54fb0e29f0c",
+            "name": "React",
+            "createdAt": "2026-02-28T08:16:17.517Z",
+            "updatedAt": "2026-02-28T08:20:03.300Z"
+        }
+    ],
+    "message": "Skills retrieved successfully",
+    "success": true
 }
 ```
