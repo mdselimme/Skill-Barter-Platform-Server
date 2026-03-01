@@ -28,9 +28,9 @@ router.delete("/:id",
 );
 
 //get all skills route
-// router.get("/",
-//     SkillsController.getAllSkills
-// );
+router.get("/",
+    SkillsController.getAllSkills
+);
 
 
 export const SkillsRoutes = router;

@@ -66,9 +66,16 @@ const deleteASkill = async (skillId: string) => {
     return result;
 };
 
+//get all skills service
+const getAllSkills = async () => {
+    const result = await prisma.skill.findMany();
+    return result;
+};
+
 
 export const SkillsService = {
     createASkill,
     updateASkill,
-    deleteASkill
+    deleteASkill,
+    getAllSkills
 };

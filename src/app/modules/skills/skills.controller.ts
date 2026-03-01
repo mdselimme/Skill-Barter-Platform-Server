@@ -30,6 +30,17 @@ const updateASkill = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+//get all skills controller
+const getAllSkills = catchAsync(async (req: Request, res: Response) => {
+    const result = await SkillsService.getAllSkills();
+    sendResponse(res, {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: "Skills retrieved successfully",
+        data: result
+    });
+});
+
 //delete skill controller
 const deleteASkill = catchAsync(async (req: Request, res: Response) => {
     const skillId = req.params.id;
@@ -46,5 +57,6 @@ const deleteASkill = catchAsync(async (req: Request, res: Response) => {
 export const SkillsController = {
     createASkill,
     updateASkill,
-    deleteASkill
+    deleteASkill,
+    getAllSkills
 };
