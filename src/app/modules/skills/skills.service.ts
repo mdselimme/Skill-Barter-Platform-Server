@@ -48,8 +48,27 @@ const updateASkill = async (skillId: string, payload: Prisma.SkillUpdateInput) =
     return result;
 };
 
+//skill delete service
+const deleteASkill = async (skillId: string) => {
+    const existingSkill = await prisma.skill.findUnique({
+        where: {
+            id: skillId,
+        },
+    });
+    if (!existingSkill) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Skill not found.");
+    }
+    const result = await prisma.skill.delete({
+        where: {
+            id: skillId,
+        },
+    });
+    return result;
+};
+
 
 export const SkillsService = {
     createASkill,
-    updateASkill
+    updateASkill,
+    deleteASkill
 };
