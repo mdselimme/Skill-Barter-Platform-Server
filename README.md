@@ -284,7 +284,6 @@ Api Response Body:
 }
 ```
 
-
 #### Auth Api Endpoints
 
 **1. Login**
@@ -292,6 +291,15 @@ Api Response Body:
 - POST http://localhost:5000/api/v1/auth/login
 
 - credentials: true
+
+Login Request Body:
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
 
 **2. Google Authentication**
 
@@ -427,6 +435,89 @@ Password Reset Response Body:
     "statusCode": 200,
     "data": null,
     "message": "Password reset successfully.",
+    "success": true
+}
+```
+
+#### Skills Api Endpoints
+
+**1. Create Skill**
+
+- POST http://localhost:5000/api/v1/skills/create
+
+- credentials: true
+
+- role: USER, ADMIN, SUPER_ADMIN
+
+Create Skill Request Body:
+
+```json
+{
+  "name": "JavaScript Programming",
+}
+```
+
+**2. Update Skill**
+
+- PATCH http://localhost:5000/api/v1/skills/:id
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Update Skill Request Body:
+
+```json
+{
+  "name": "JavaScript Programming",
+}
+```
+
+**3. Delete Skill**
+
+- DELETE http://localhost:5000/api/v1/skills/:id
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Delete Skill Response Body:
+
+```json
+{
+  "statusCode": 200,
+  "data": null,
+  "message": "Skill deleted successfully.",
+  "success": true
+}
+```
+
+**4. Get All Skills**
+
+- GET http://localhost:5000/api/v1/skills
+
+- credentials: true
+
+Get All Skills Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": [
+        {
+            "id": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+            "name": "React Js",
+            "createdAt": "2026-02-28T08:15:32.036Z",
+            "updatedAt": "2026-02-28T08:15:32.036Z"
+        },
+        {
+            "id": "f5827713-4ba1-4e5d-92d2-c54fb0e29f0c",
+            "name": "React",
+            "createdAt": "2026-02-28T08:16:17.517Z",
+            "updatedAt": "2026-02-28T08:20:03.300Z"
+        }
+    ],
+    "message": "Skills retrieved successfully",
     "success": true
 }
 ```

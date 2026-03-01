@@ -21,5 +21,16 @@ router.patch("/:id",
     SkillsController.updateASkill
 );
 
+//skill delete route
+router.delete("/:id",
+    checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+    SkillsController.deleteASkill
+);
+
+//get all skills route
+router.get("/",
+    SkillsController.getAllSkills
+);
+
 
 export const SkillsRoutes = router;
