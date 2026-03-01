@@ -284,7 +284,6 @@ Api Response Body:
 }
 ```
 
-
 #### Auth Api Endpoints
 
 **1. Login**
@@ -292,6 +291,15 @@ Api Response Body:
 - POST http://localhost:5000/api/v1/auth/login
 
 - credentials: true
+
+Login Request Body:
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
 
 **2. Google Authentication**
 
@@ -428,5 +436,38 @@ Password Reset Response Body:
     "data": null,
     "message": "Password reset successfully.",
     "success": true
+}
+```
+
+#### Skills Api Endpoints
+
+**1. Create Skill**
+
+- POST http://localhost:5000/api/v1/skills/create
+
+- credentials: true
+
+- role: USER, ADMIN, SUPER_ADMIN
+
+Create Skill Request Body:
+
+```json
+{
+  "name": "JavaScript Programming",
+}
+```
+**2. Update Skill**
+
+- PATCH http://localhost:5000/api/v1/skills/:id
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Update Skill Request Body:
+
+```json
+{
+  "name": "JavaScript Programming",
 }
 ```
