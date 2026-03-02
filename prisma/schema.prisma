@@ -90,11 +90,14 @@ enum SessionStatus {
 }
 
 model BarterSession {
-  id          String        @id @default(uuid())
-  teacher     User          @relation("Teacher", fields: [teacherId], references: [id])
-  teacherId   String
-  learner     User          @relation("Learner", fields: [learnerId], references: [id])
-  learnerId   String
+  id String @id @default(uuid())
+
+  teacher   User?   @relation("Teacher", fields: [teacherId], references: [id])
+  teacherId String?
+
+  learner   User   @relation("Learner", fields: [learnerId], references: [id])
+  learnerId String
+
   skill       Skill         @relation(fields: [skillId], references: [id])
   skillId     String
   hours       Int
