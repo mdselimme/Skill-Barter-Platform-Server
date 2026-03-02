@@ -98,9 +98,10 @@ model BarterSession {
   learner   User   @relation("Learner", fields: [learnerId], references: [id])
   learnerId String
 
-  skill       Skill         @relation(fields: [skillId], references: [id])
-  skillId     String
-  hours       Int
+  skill   Skill  @relation(fields: [skillId], references: [id])
+  skillId String
+  hours   String
+
   status      SessionStatus @default(PENDING)
   scheduledAt DateTime
 

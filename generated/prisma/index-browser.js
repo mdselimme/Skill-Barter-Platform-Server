@@ -183,6 +183,16 @@ exports.Prisma.UserSkillScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CreditTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  type: 'type',
+  sessionId: 'sessionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -233,13 +243,21 @@ exports.SkillLevel = exports.$Enums.SkillLevel = {
   EXPERT: 'EXPERT'
 };
 
+exports.TransactionType = exports.$Enums.TransactionType = {
+  EARN: 'EARN',
+  SPEND: 'SPEND',
+  BONUS: 'BONUS',
+  PENALTY: 'PENALTY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   Review: 'Review',
   BarterSession: 'BarterSession',
   Skill: 'Skill',
-  UserSkill: 'UserSkill'
+  UserSkill: 'UserSkill',
+  CreditTransaction: 'CreditTransaction'
 };
 
 /**

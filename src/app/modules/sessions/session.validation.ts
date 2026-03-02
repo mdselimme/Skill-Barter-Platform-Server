@@ -3,13 +3,13 @@ import z from "zod";
 
 //add session validation
 const addSessionZodSchema = z.object({
-    skillId: z.uuid({
+    skill: z.uuid({
         error: "Skill ID is required",
     }),
-    hours: z.iso.date({
+    hours: z.iso.time({
         error: "Hours must be a valid datetime",
     }),
-    scheduledAt: z.iso.time({
+    scheduledAt: z.iso.date({
         error: "Scheduled At must be a valid datetime",
     }),
 });
