@@ -521,3 +521,50 @@ Get All Skills Response Body:
     "success": true
 }
 ```
+
+#### Session Api Endpoints
+
+**1. Create Session**
+
+- POST http://localhost:5000/api/v1/session/add
+
+- credentials: true
+
+- role: USER
+
+Create Session Request Body:
+
+```json
+{
+    "skill": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+    "hours": "02:05",
+    "scheduledAt": "2026-03-08"
+}
+```
+
+Create Session Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "id": "b4fcb3ad-a0cd-48c5-a694-cf2666ea4a9c",
+        "teacherId": null,
+        "learnerId": "e39b314e-2996-4d6b-9a03-421c04417b80",
+        "skillId": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+        "hours": "02:05",
+        "status": "PENDING",
+        "scheduledAt": "2026-03-08T00:00:00.000Z",
+        "createdAt": "2026-03-02T21:19:44.684Z",
+        "updatedAt": "2026-03-02T21:19:44.684Z",
+        "skill": {
+            "id": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+            "name": "React Js",
+            "createdAt": "2026-02-28T08:15:32.036Z",
+            "updatedAt": "2026-02-28T08:15:32.036Z"
+        }
+    },
+    "message": "Session created successfully",
+    "success": true
+}
+```
