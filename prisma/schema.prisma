@@ -98,9 +98,13 @@ model BarterSession {
   learner   User   @relation("Learner", fields: [learnerId], references: [id])
   learnerId String
 
-  skill   Skill  @relation(fields: [skillId], references: [id])
-  skillId String
-  hours   String
+  learnerSkill   Skill  @relation("LearnerSkill", fields: [learnerSkillId], references: [id])
+  learnerSkillId String
+
+  teacherSkillId String
+  teacherSkill   Skill  @relation("TeacherSkill", fields: [teacherSkillId], references: [id])
+
+  hours String
 
   status      SessionStatus @default(PENDING)
   scheduledAt DateTime
@@ -132,7 +136,8 @@ model Skill {
 
   users UserSkill[]
 
-  barterSessions BarterSession[]
+  barterSessionsAsLearner BarterSession[] @relation("LearnerSkill")
+  barterSessionsAsTeacher BarterSession[] @relation("TeacherSkill")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
