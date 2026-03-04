@@ -605,3 +605,22 @@ Get All Sessions Response Body:
     "success": true
 }
 ```
+
+**3. Delete Sessions**
+
+- DELETE http://localhost:5000/api/v1/session/:id
+
+- credentials: true
+
+- role: USER
+
+Delete Sessions Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": null,
+    "message": "Session deleted successfully",
+    "success": true
+}
+```
