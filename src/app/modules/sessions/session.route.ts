@@ -13,7 +13,18 @@ router.post("/add",
     checkAuth(UserRole.USER),
     validateZodSchema(SessionValidation.addSessionZodSchema),
     SessionController.createASession
-)
+);
+
+//get all sessions route
+router.get("/",
+    SessionController.getAllSessions
+);
+
+//delete session route
+router.delete("/:id",
+    checkAuth(UserRole.USER),
+    SessionController.deleteASession
+);
 
 
 export const sessionRoutes = router;
