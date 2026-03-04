@@ -38,6 +38,24 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
     return result;
 };
 
+//get all sessions service
+const getAllSessions = async () => {
+    const sessions = await prisma.barterSession.findMany({
+        include: {
+            skill: true,
+            learner: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    profileImg: true
+                }
+            }
+        }
+    });
+    return sessions;
+};
+
 //delete session service
 const deleteASession = async (sessionId: string, userId: string) => {
     //check if session exists
@@ -67,5 +85,6 @@ const deleteASession = async (sessionId: string, userId: string) => {
 
 export const SessionService = {
     createASession,
-    deleteASession
+    deleteASession,
+    getAllSessions
 };

@@ -15,8 +15,13 @@ router.post("/add",
     SessionController.createASession
 );
 
+//get all sessions route
+router.get("/",
+    SessionController.getAllSessions
+);
+
 //delete session route
-router.delete("/delete/:id",
+router.delete("/:id",
     checkAuth(UserRole.USER),
     SessionController.deleteASession
 );

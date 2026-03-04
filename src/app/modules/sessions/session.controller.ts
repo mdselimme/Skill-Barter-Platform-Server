@@ -17,6 +17,17 @@ const createASession = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+//get all sessions controller
+const getAllSessions = catchAsync(async (req: Request, res: Response) => {
+    const result = await SessionService.getAllSessions();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Sessions retrieved successfully",
+        data: result
+    })
+});
+
 
 //delete session controller
 const deleteASession = catchAsync(async (req: Request, res: Response) => {
@@ -35,5 +46,6 @@ const deleteASession = catchAsync(async (req: Request, res: Response) => {
 
 export const SessionController = {
     createASession,
-    deleteASession
+    deleteASession,
+    getAllSessions
 };
