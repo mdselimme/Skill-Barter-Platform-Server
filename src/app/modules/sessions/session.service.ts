@@ -7,7 +7,7 @@ import httpStatus from "http-status";
 const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: string) => {
     const skill = await prisma.skill.findUnique({
         where: {
-            id: payload.skill as string
+            id: payload.learnerSkill as string
         }
     });
 
@@ -20,9 +20,9 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
         data: {
             hours: payload.hours,
             scheduledAt: new Date(payload.scheduledAt),
-            skill: {
+            learnerSkill: {
                 connect: {
-                    id: payload.skill as string
+                    id: payload.learnerSkill as string
                 }
             },
             learner: {
@@ -32,7 +32,7 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
             }
         },
         include: {
-            skill: true,
+            learnerSkill: true,
         }
     });
     return result;
@@ -42,7 +42,7 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
 const getAllSessions = async () => {
     const sessions = await prisma.barterSession.findMany({
         include: {
-            skill: {
+            learnerSkill: {
                 select: {
                     id: true,
                     name: true,
