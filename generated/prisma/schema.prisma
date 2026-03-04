@@ -101,8 +101,8 @@ model BarterSession {
   learnerSkill   Skill  @relation("LearnerSkill", fields: [learnerSkillId], references: [id])
   learnerSkillId String
 
-  teacherSkillId String
-  teacherSkill   Skill  @relation("TeacherSkill", fields: [teacherSkillId], references: [id])
+  teacherSkillId String?
+  teacherSkill   Skill?  @relation("TeacherSkill", fields: [teacherSkillId], references: [id])
 
   hours String
 

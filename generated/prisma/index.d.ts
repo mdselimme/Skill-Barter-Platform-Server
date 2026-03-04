@@ -5284,7 +5284,7 @@ export namespace Prisma {
     teacherId: string | null
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId: string | null
     hours: string
     status: $Enums.SessionStatus
     scheduledAt: Date
@@ -5323,7 +5323,7 @@ export namespace Prisma {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
     review?: boolean | BarterSession$reviewArgs<ExtArgs>
   }, ExtArgs["result"]["barterSession"]>
 
@@ -5341,7 +5341,7 @@ export namespace Prisma {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
   }, ExtArgs["result"]["barterSession"]>
 
   export type BarterSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5358,7 +5358,7 @@ export namespace Prisma {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
   }, ExtArgs["result"]["barterSession"]>
 
   export type BarterSessionSelectScalar = {
@@ -5379,20 +5379,20 @@ export namespace Prisma {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
     review?: boolean | BarterSession$reviewArgs<ExtArgs>
   }
   export type BarterSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
   }
   export type BarterSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teacher?: boolean | BarterSession$teacherArgs<ExtArgs>
     learner?: boolean | UserDefaultArgs<ExtArgs>
     learnerSkill?: boolean | SkillDefaultArgs<ExtArgs>
-    teacherSkill?: boolean | SkillDefaultArgs<ExtArgs>
+    teacherSkill?: boolean | BarterSession$teacherSkillArgs<ExtArgs>
   }
 
   export type $BarterSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5401,7 +5401,7 @@ export namespace Prisma {
       teacher: Prisma.$UserPayload<ExtArgs> | null
       learner: Prisma.$UserPayload<ExtArgs>
       learnerSkill: Prisma.$SkillPayload<ExtArgs>
-      teacherSkill: Prisma.$SkillPayload<ExtArgs>
+      teacherSkill: Prisma.$SkillPayload<ExtArgs> | null
       review: Prisma.$ReviewPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5409,7 +5409,7 @@ export namespace Prisma {
       teacherId: string | null
       learnerId: string
       learnerSkillId: string
-      teacherSkillId: string
+      teacherSkillId: string | null
       hours: string
       status: $Enums.SessionStatus
       scheduledAt: Date
@@ -5812,7 +5812,7 @@ export namespace Prisma {
     teacher<T extends BarterSession$teacherArgs<ExtArgs> = {}>(args?: Subset<T, BarterSession$teacherArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     learner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     learnerSkill<T extends SkillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillDefaultArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    teacherSkill<T extends SkillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillDefaultArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    teacherSkill<T extends BarterSession$teacherSkillArgs<ExtArgs> = {}>(args?: Subset<T, BarterSession$teacherSkillArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     review<T extends BarterSession$reviewArgs<ExtArgs> = {}>(args?: Subset<T, BarterSession$reviewArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6265,6 +6265,25 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * BarterSession.teacherSkill
+   */
+  export type BarterSession$teacherSkillArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    where?: SkillWhereInput
   }
 
   /**
@@ -10169,7 +10188,7 @@ export namespace Prisma {
     teacherId?: StringNullableFilter<"BarterSession"> | string | null
     learnerId?: StringFilter<"BarterSession"> | string
     learnerSkillId?: StringFilter<"BarterSession"> | string
-    teacherSkillId?: StringFilter<"BarterSession"> | string
+    teacherSkillId?: StringNullableFilter<"BarterSession"> | string | null
     hours?: StringFilter<"BarterSession"> | string
     status?: EnumSessionStatusFilter<"BarterSession"> | $Enums.SessionStatus
     scheduledAt?: DateTimeFilter<"BarterSession"> | Date | string
@@ -10178,7 +10197,7 @@ export namespace Prisma {
     teacher?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     learner?: XOR<UserScalarRelationFilter, UserWhereInput>
     learnerSkill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
-    teacherSkill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+    teacherSkill?: XOR<SkillNullableScalarRelationFilter, SkillWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
   }
 
@@ -10187,7 +10206,7 @@ export namespace Prisma {
     teacherId?: SortOrderInput | SortOrder
     learnerId?: SortOrder
     learnerSkillId?: SortOrder
-    teacherSkillId?: SortOrder
+    teacherSkillId?: SortOrderInput | SortOrder
     hours?: SortOrder
     status?: SortOrder
     scheduledAt?: SortOrder
@@ -10208,7 +10227,7 @@ export namespace Prisma {
     teacherId?: StringNullableFilter<"BarterSession"> | string | null
     learnerId?: StringFilter<"BarterSession"> | string
     learnerSkillId?: StringFilter<"BarterSession"> | string
-    teacherSkillId?: StringFilter<"BarterSession"> | string
+    teacherSkillId?: StringNullableFilter<"BarterSession"> | string | null
     hours?: StringFilter<"BarterSession"> | string
     status?: EnumSessionStatusFilter<"BarterSession"> | $Enums.SessionStatus
     scheduledAt?: DateTimeFilter<"BarterSession"> | Date | string
@@ -10217,7 +10236,7 @@ export namespace Prisma {
     teacher?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     learner?: XOR<UserScalarRelationFilter, UserWhereInput>
     learnerSkill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
-    teacherSkill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+    teacherSkill?: XOR<SkillNullableScalarRelationFilter, SkillWhereInput> | null
     review?: XOR<ReviewNullableScalarRelationFilter, ReviewWhereInput> | null
   }, "id">
 
@@ -10226,7 +10245,7 @@ export namespace Prisma {
     teacherId?: SortOrderInput | SortOrder
     learnerId?: SortOrder
     learnerSkillId?: SortOrder
-    teacherSkillId?: SortOrder
+    teacherSkillId?: SortOrderInput | SortOrder
     hours?: SortOrder
     status?: SortOrder
     scheduledAt?: SortOrder
@@ -10245,7 +10264,7 @@ export namespace Prisma {
     teacherId?: StringNullableWithAggregatesFilter<"BarterSession"> | string | null
     learnerId?: StringWithAggregatesFilter<"BarterSession"> | string
     learnerSkillId?: StringWithAggregatesFilter<"BarterSession"> | string
-    teacherSkillId?: StringWithAggregatesFilter<"BarterSession"> | string
+    teacherSkillId?: StringNullableWithAggregatesFilter<"BarterSession"> | string | null
     hours?: StringWithAggregatesFilter<"BarterSession"> | string
     status?: EnumSessionStatusWithAggregatesFilter<"BarterSession"> | $Enums.SessionStatus
     scheduledAt?: DateTimeWithAggregatesFilter<"BarterSession"> | Date | string
@@ -10710,7 +10729,7 @@ export namespace Prisma {
     teacher?: UserCreateNestedOneWithoutSessionAsTeacherInput
     learner: UserCreateNestedOneWithoutSessionAsStudentInput
     learnerSkill: SkillCreateNestedOneWithoutBarterSessionsAsLearnerInput
-    teacherSkill: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
+    teacherSkill?: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
     review?: ReviewCreateNestedOneWithoutSessionInput
   }
 
@@ -10719,7 +10738,7 @@ export namespace Prisma {
     teacherId?: string | null
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -10738,7 +10757,7 @@ export namespace Prisma {
     teacher?: UserUpdateOneWithoutSessionAsTeacherNestedInput
     learner?: UserUpdateOneRequiredWithoutSessionAsStudentNestedInput
     learnerSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsLearnerNestedInput
-    teacherSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput
+    teacherSkill?: SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput
     review?: ReviewUpdateOneWithoutSessionNestedInput
   }
 
@@ -10747,7 +10766,7 @@ export namespace Prisma {
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerId?: StringFieldUpdateOperationsInput | string
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10761,7 +10780,7 @@ export namespace Prisma {
     teacherId?: string | null
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -10783,7 +10802,7 @@ export namespace Prisma {
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerId?: StringFieldUpdateOperationsInput | string
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11361,6 +11380,11 @@ export namespace Prisma {
     isNot?: SkillWhereInput
   }
 
+  export type SkillNullableScalarRelationFilter = {
+    is?: SkillWhereInput | null
+    isNot?: SkillWhereInput | null
+  }
+
   export type ReviewNullableScalarRelationFilter = {
     is?: ReviewWhereInput | null
     isNot?: ReviewWhereInput | null
@@ -11895,10 +11919,12 @@ export namespace Prisma {
     update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutBarterSessionsAsLearnerInput, SkillUpdateWithoutBarterSessionsAsLearnerInput>, SkillUncheckedUpdateWithoutBarterSessionsAsLearnerInput>
   }
 
-  export type SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput = {
+  export type SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput = {
     create?: XOR<SkillCreateWithoutBarterSessionsAsTeacherInput, SkillUncheckedCreateWithoutBarterSessionsAsTeacherInput>
     connectOrCreate?: SkillCreateOrConnectWithoutBarterSessionsAsTeacherInput
     upsert?: SkillUpsertWithoutBarterSessionsAsTeacherInput
+    disconnect?: SkillWhereInput | boolean
+    delete?: SkillWhereInput | boolean
     connect?: SkillWhereUniqueInput
     update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutBarterSessionsAsTeacherInput, SkillUpdateWithoutBarterSessionsAsTeacherInput>, SkillUncheckedUpdateWithoutBarterSessionsAsTeacherInput>
   }
@@ -12406,7 +12432,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     learner: UserCreateNestedOneWithoutSessionAsStudentInput
     learnerSkill: SkillCreateNestedOneWithoutBarterSessionsAsLearnerInput
-    teacherSkill: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
+    teacherSkill?: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
     review?: ReviewCreateNestedOneWithoutSessionInput
   }
 
@@ -12414,7 +12440,7 @@ export namespace Prisma {
     id?: string
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -12442,7 +12468,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     teacher?: UserCreateNestedOneWithoutSessionAsTeacherInput
     learnerSkill: SkillCreateNestedOneWithoutBarterSessionsAsLearnerInput
-    teacherSkill: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
+    teacherSkill?: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
     review?: ReviewCreateNestedOneWithoutSessionInput
   }
 
@@ -12450,7 +12476,7 @@ export namespace Prisma {
     id?: string
     teacherId?: string | null
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -12577,7 +12603,7 @@ export namespace Prisma {
     teacherId?: StringNullableFilter<"BarterSession"> | string | null
     learnerId?: StringFilter<"BarterSession"> | string
     learnerSkillId?: StringFilter<"BarterSession"> | string
-    teacherSkillId?: StringFilter<"BarterSession"> | string
+    teacherSkillId?: StringNullableFilter<"BarterSession"> | string | null
     hours?: StringFilter<"BarterSession"> | string
     status?: EnumSessionStatusFilter<"BarterSession"> | $Enums.SessionStatus
     scheduledAt?: DateTimeFilter<"BarterSession"> | Date | string
@@ -12765,7 +12791,7 @@ export namespace Prisma {
     teacher?: UserCreateNestedOneWithoutSessionAsTeacherInput
     learner: UserCreateNestedOneWithoutSessionAsStudentInput
     learnerSkill: SkillCreateNestedOneWithoutBarterSessionsAsLearnerInput
-    teacherSkill: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
+    teacherSkill?: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
   }
 
   export type BarterSessionUncheckedCreateWithoutReviewInput = {
@@ -12773,7 +12799,7 @@ export namespace Prisma {
     teacherId?: string | null
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -12807,7 +12833,7 @@ export namespace Prisma {
     teacher?: UserUpdateOneWithoutSessionAsTeacherNestedInput
     learner?: UserUpdateOneRequiredWithoutSessionAsStudentNestedInput
     learnerSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsLearnerNestedInput
-    teacherSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput
+    teacherSkill?: SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput
   }
 
   export type BarterSessionUncheckedUpdateWithoutReviewInput = {
@@ -12815,7 +12841,7 @@ export namespace Prisma {
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerId?: StringFieldUpdateOperationsInput | string
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13204,7 +13230,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     teacher?: UserCreateNestedOneWithoutSessionAsTeacherInput
     learner: UserCreateNestedOneWithoutSessionAsStudentInput
-    teacherSkill: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
+    teacherSkill?: SkillCreateNestedOneWithoutBarterSessionsAsTeacherInput
     review?: ReviewCreateNestedOneWithoutSessionInput
   }
 
@@ -13212,7 +13238,7 @@ export namespace Prisma {
     id?: string
     teacherId?: string | null
     learnerId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -13571,7 +13597,7 @@ export namespace Prisma {
     id?: string
     learnerId: string
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -13583,7 +13609,7 @@ export namespace Prisma {
     id?: string
     teacherId?: string | null
     learnerSkillId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -13642,7 +13668,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learner?: UserUpdateOneRequiredWithoutSessionAsStudentNestedInput
     learnerSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsLearnerNestedInput
-    teacherSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput
+    teacherSkill?: SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput
     review?: ReviewUpdateOneWithoutSessionNestedInput
   }
 
@@ -13650,7 +13676,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     learnerId?: StringFieldUpdateOperationsInput | string
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13663,7 +13689,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     learnerId?: StringFieldUpdateOperationsInput | string
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13680,7 +13706,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: UserUpdateOneWithoutSessionAsTeacherNestedInput
     learnerSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsLearnerNestedInput
-    teacherSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput
+    teacherSkill?: SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput
     review?: ReviewUpdateOneWithoutSessionNestedInput
   }
 
@@ -13688,7 +13714,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13701,7 +13727,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerSkillId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13776,7 +13802,7 @@ export namespace Prisma {
     id?: string
     teacherId?: string | null
     learnerId: string
-    teacherSkillId: string
+    teacherSkillId?: string | null
     hours: string
     status?: $Enums.SessionStatus
     scheduledAt: Date | string
@@ -13832,7 +13858,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: UserUpdateOneWithoutSessionAsTeacherNestedInput
     learner?: UserUpdateOneRequiredWithoutSessionAsStudentNestedInput
-    teacherSkill?: SkillUpdateOneRequiredWithoutBarterSessionsAsTeacherNestedInput
+    teacherSkill?: SkillUpdateOneWithoutBarterSessionsAsTeacherNestedInput
     review?: ReviewUpdateOneWithoutSessionNestedInput
   }
 
@@ -13840,7 +13866,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13853,7 +13879,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     learnerId?: StringFieldUpdateOperationsInput | string
-    teacherSkillId?: StringFieldUpdateOperationsInput | string
+    teacherSkillId?: NullableStringFieldUpdateOperationsInput | string | null
     hours?: StringFieldUpdateOperationsInput | string
     status?: EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
     scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
