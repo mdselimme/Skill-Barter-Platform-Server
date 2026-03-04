@@ -15,6 +15,8 @@ router.post("/add",
     SessionController.createASession
 );
 
+//add teacher to session route
+
 //get all sessions route
 router.get("/",
     SessionController.getAllSessions
