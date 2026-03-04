@@ -42,7 +42,12 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
 const getAllSessions = async () => {
     const sessions = await prisma.barterSession.findMany({
         include: {
-            skill: true,
+            skill: {
+                select: {
+                    id: true,
+                    name: true,
+                }
+            },
             learner: {
                 select: {
                     id: true,

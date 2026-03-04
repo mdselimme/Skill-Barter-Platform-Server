@@ -568,3 +568,40 @@ Create Session Response Body:
     "success": true
 }
 ```
+
+**2. Get All Sessions**
+
+- GET http://localhost:5000/api/v1/session
+
+Get All Sessions Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": [
+        {
+            "id": "00c51076-e101-4ab3-a0bb-d908e2a00692",
+            "teacherId": null,
+            "learnerId": "e39b314e-2996-4d6b-9a03-421c04417b80",
+            "skillId": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+            "hours": "02:05",
+            "status": "PENDING",
+            "scheduledAt": "2026-03-08T00:00:00.000Z",
+            "createdAt": "2026-03-04T17:35:41.018Z",
+            "updatedAt": "2026-03-04T17:35:41.018Z",
+            "skill": {
+                "id": "ba825f6b-de97-49cc-bc3f-010d8fa1eeeb",
+                "name": "React Js",
+            },
+            "learner": {
+                "id": "e39b314e-2996-4d6b-9a03-421c04417b80",
+                "name": "Abdul",
+                "email": "mdselimdevone@gmail.com",
+                "profileImg": "https://res.cloudinary.com/dsla2viks/image/upload/v1771875254/2e8vasw9pa6_1771875251002_black-sweter-png.png.png"
+            }
+        }
+    ],
+    "message": "Sessions retrieved successfully",
+    "success": true
+}
+```
