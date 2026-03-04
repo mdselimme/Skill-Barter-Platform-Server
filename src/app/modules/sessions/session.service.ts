@@ -38,7 +38,34 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
     return result;
 };
 
+//delete session service
+const deleteASession = async (sessionId: string, userId: string) => {
+    //check if session exists
+    const session = await prisma.barterSession.findUnique({
+        where: {
+            id: sessionId
+        }
+    });
+
+    if (!session) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Session data does not found. Please check your session id");
+    }
+
+    //check if the user is the owner of the session
+    if (session.learnerId !== userId) {
+        throw new ApiError(httpStatus.FORBIDDEN, "You are not authorized to delete this session.");
+    }
+
+    //delete session logic here
+    await prisma.barterSession.delete({
+        where: {
+            id: sessionId
+        }
+    });
+};
+
 
 export const SessionService = {
-    createASession
+    createASession,
+    deleteASession
 };
