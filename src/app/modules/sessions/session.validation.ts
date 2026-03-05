@@ -14,6 +14,17 @@ const addSessionZodSchema = z.object({
     }),
 });
 
+//add teacher to session validation
+const addTeacherToSessionZodSchema = z.object({
+    teacherId: z.uuid({
+        error: "Teacher ID is required",
+    }),
+    teacherSkillId: z.iso.time({
+        error: "Hours must be a valid datetime",
+    }),
+});
+
 export const SessionValidation = {
-    addSessionZodSchema
+    addSessionZodSchema,
+    addTeacherToSessionZodSchema
 }
