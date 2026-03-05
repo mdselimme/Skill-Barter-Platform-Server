@@ -17,6 +17,20 @@ const createASession = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+//add teacher to session controller
+const addTeacherToSession = catchAsync(async (req: Request, res: Response) => {
+    const sessionId = req.params.id;
+
+    //add teacher to session logic here
+    const result = await SessionService.addTeacherToSession(sessionId as string, req.body);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: result,
+        message: "Teacher added to session successfully",
+    })
+});
+
 //get all sessions controller
 const getAllSessions = catchAsync(async (req: Request, res: Response) => {
     const result = await SessionService.getAllSessions();
@@ -47,5 +61,6 @@ const deleteASession = catchAsync(async (req: Request, res: Response) => {
 export const SessionController = {
     createASession,
     deleteASession,
-    getAllSessions
+    getAllSessions,
+    addTeacherToSession
 };

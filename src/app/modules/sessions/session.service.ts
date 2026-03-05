@@ -38,6 +38,62 @@ const createASession = async (payload: Prisma.BarterSessionCreateInput, userid: 
     return result;
 };
 
+//add teacher to session service
+const addTeacherToSession = async (sessionId: string, payload: { teacherId: string; teacherSkillId: string }) => {
+    //check if session exists
+    const session = await prisma.barterSession.findUnique({
+        where: {
+            id: sessionId
+        }
+    });
+    if (!session) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Session not found");
+    }
+
+    const teacherSkill = await prisma.skill.findUnique({
+        where: {
+            id: payload.teacherSkillId as string
+        }
+    });
+
+    if (!teacherSkill) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Teacher skill not found");
+    }
+    if (teacherSkill.id === session.learnerSkillId) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Teacher skill cannot be the same as learner skill.");
+    }
+    //check if teacher skill is the same as learner skill
+    if (session.learnerSkillId === payload.teacherSkillId) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Teacher skill cannot be the same as learner skill");
+    }
+    //add teacher to session logic here
+    const result = await prisma.barterSession.update({
+        where: {
+            id: sessionId
+        },
+        data: {
+            teacher: {
+                connect: {
+                    id: payload.teacherId
+                }
+            },
+            teacherSkill: {
+                connect: {
+                    id: payload.teacherSkillId
+                }
+            }
+        },
+        include: {
+            learnerSkill: true,
+            teacher: true,
+            teacherSkill: true
+        }
+    });
+    return result;
+};
+//check if session exists
+
+
 //get all sessions service
 const getAllSessions = async () => {
     const sessions = await prisma.barterSession.findMany({
@@ -91,5 +147,6 @@ const deleteASession = async (sessionId: string, userId: string) => {
 export const SessionService = {
     createASession,
     deleteASession,
-    getAllSessions
+    getAllSessions,
+    addTeacherToSession
 };
