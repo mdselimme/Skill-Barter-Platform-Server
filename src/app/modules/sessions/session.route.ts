@@ -16,6 +16,11 @@ router.post("/add",
 );
 
 //add teacher to session route
+router.patch("/teacher/add/:id",
+    checkAuth(UserRole.USER),
+    validateZodSchema(SessionValidation.addTeacherToSessionZodSchema),
+    SessionController.addTeacherToSession
+)
 
 //get all sessions route
 router.get("/",
