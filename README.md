@@ -606,7 +606,62 @@ Get All Sessions Response Body:
 }
 ```
 
-**3. Delete Sessions**
+**3. Add Teacher In Barter Session**
+
+- PATCH http://localhost:5000/api/v1/session/teacher/add/:id
+
+- credentials: true
+
+- role: USER
+
+Add Teacher In Barter Session Request Body:
+
+```json
+{
+    "teacherId": "a504ba00-0cb4-4464-9595-347af7c5ed4c",
+    "teacherSkillId": "8548e6ff-47c6-4a40-b79e-aa36d1a5da97"
+}
+```
+
+Add Teacher In Barter Session Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "id": "0f1eed7b-a475-44a5-b358-3fdfb5d015a7",
+        "teacherId": "a504ba00-0cb4-4464-9595-347af7c5ed4c",
+        "learnerId": "b9a33c34-ac8a-422f-9cb0-eac78ad5cf67",
+        "learnerSkillId": "caad3f59-5428-4b1a-9a36-01e23fc3d355",
+        "teacherSkillId": "8548e6ff-47c6-4a40-b79e-aa36d1a5da97",
+        "hours": "02:05",
+        "status": "PENDING",
+        "scheduledAt": "2026-03-08T00:00:00.000Z",
+        "createdAt": "2026-03-05T19:52:12.467Z",
+        "updatedAt": "2026-03-05T19:59:50.770Z",
+        "learnerSkill": {
+            "id": "caad3f59-5428-4b1a-9a36-01e23fc3d355",
+            "name": "React Js",
+            "createdAt": "2026-03-05T19:48:51.127Z",
+            "updatedAt": "2026-03-05T19:48:51.127Z"
+        },
+        "teacher": {
+            "id": "a504ba00-0cb4-4464-9595-347af7c5ed4c",
+            "name": "Selim",
+            "email": "mdselimdev@gmail.com",
+            "profileImg": null
+        },
+        "teacherSkill": {
+            "id": "8548e6ff-47c6-4a40-b79e-aa36d1a5da97",
+            "name": "TypeScript"
+        }
+    },
+    "message": "Teacher added to session successfully",
+    "success": true
+}
+```
+
+**4. Delete Sessions**
 
 - DELETE http://localhost:5000/api/v1/session/:id
 
