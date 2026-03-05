@@ -75,7 +75,7 @@ const addTeacherToSession = async (sessionId: string, payload: { teacherId: stri
             teacher: {
                 connect: {
                     id: payload.teacherId
-                }
+                },
             },
             teacherSkill: {
                 connect: {
@@ -85,8 +85,20 @@ const addTeacherToSession = async (sessionId: string, payload: { teacherId: stri
         },
         include: {
             learnerSkill: true,
-            teacher: true,
-            teacherSkill: true
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    profileImg: true
+                }
+            },
+            teacherSkill: {
+                select: {
+                    id: true,
+                    name: true,
+                }
+            }
         }
     });
     return result;
