@@ -42,6 +42,18 @@ const getAllSessions = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+//get a session by id controller
+const getASessionById = catchAsync(async (req: Request, res: Response) => {
+    const sessionId = req.params.id;
+    const result = await SessionService.getASessionById(sessionId as string);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Single Session retrieved successfully",
+        data: result
+    })
+});
+
 
 //delete session controller
 const deleteASession = catchAsync(async (req: Request, res: Response) => {
@@ -62,5 +74,6 @@ export const SessionController = {
     createASession,
     deleteASession,
     getAllSessions,
-    addTeacherToSession
+    addTeacherToSession,
+    getASessionById
 };

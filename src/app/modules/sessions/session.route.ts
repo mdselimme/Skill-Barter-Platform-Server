@@ -27,6 +27,11 @@ router.get("/",
     SessionController.getAllSessions
 );
 
+//get a session by id route
+router.get("/:id",
+    SessionController.getASessionById
+);
+
 //delete session route
 router.delete("/:id",
     checkAuth(UserRole.USER),
