@@ -103,8 +103,6 @@ const addTeacherToSession = async (sessionId: string, payload: { teacherId: stri
     });
     return result;
 };
-//check if session exists
-
 
 //get all sessions service
 const getAllSessions = async () => {
@@ -155,10 +153,54 @@ const deleteASession = async (sessionId: string, userId: string) => {
     });
 };
 
+//get a session by id service
+const getASessionById = async (sessionId: string) => {
+
+    const session = await prisma.barterSession.findUnique({
+        where: {
+            id: sessionId
+        },
+        include: {
+            learnerSkill: {
+                select: {
+                    id: true,
+                    name: true,
+                }
+            },
+            learner: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    profileImg: true
+                }
+            },
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    profileImg: true
+                }
+            },
+            teacherSkill: {
+                select: {
+                    id: true,
+                    name: true,
+                }
+            }
+        }
+    });
+    if (!session) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Session not found");
+    }
+    return session;
+};
 
 export const SessionService = {
     createASession,
     deleteASession,
     getAllSessions,
-    addTeacherToSession
+    addTeacherToSession,
+    getASessionById
 };
