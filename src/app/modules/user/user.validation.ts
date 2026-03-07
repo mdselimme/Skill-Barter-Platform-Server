@@ -58,10 +58,21 @@ const userProfileUpdateValidationSchema = z.object({
     }).optional(),
 });
 
+//user verification validation
+const userVerificationValidationSchema = z.object({
+    email: z.email({
+        error: "email is required & must be a valid email."
+    }),
+    isVerified: z.boolean({
+        error: "isVerified is required & must be a boolean."
+    })
+});
+
 
 export const UserValidation = {
     userRegisterValidation,
     userRoleValidationSchema,
     userStatusSchema,
-    userProfileUpdateValidationSchema
+    userProfileUpdateValidationSchema,
+    userVerificationValidationSchema
 };

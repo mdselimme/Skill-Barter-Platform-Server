@@ -73,6 +73,17 @@ const userStatusUpdate = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+//user verification controller
+const userVerification = catchAsync(async (req: Request, res: Response) => {
+    const result = await UserServices.userVerification(req.body);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User verification updated Successfully.",
+        data: result,
+    });
+});
+
 //user profile update controller
 const userProfileUpdate = catchAsync(async (req: Request, res: Response) => {
     const result = await UserServices.userProfileUpdate(req.body, req.user as IJwtToken);
@@ -106,4 +117,5 @@ export const UserControllers = {
     userProfileUpdate,
     getAllUsers,
     userProfilePhotoUpdate,
+    userVerification
 };
