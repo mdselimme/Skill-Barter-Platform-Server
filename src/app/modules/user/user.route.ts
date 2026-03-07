@@ -31,6 +31,12 @@ router.get("/me",
 router.get("/:id",
     UserControllers.getUserByUserId
 );
+//user verified by admin
+router.patch("/verify-user",
+    validateZodSchema(UserValidation.userVerificationValidationSchema),
+    checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+    UserControllers.userVerification
+)
 
 //update user role
 router.patch("/update-role",

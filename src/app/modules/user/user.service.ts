@@ -221,6 +221,38 @@ const userProfileUpdate = async (payload: Partial<User>, user: IJwtToken) => {
     return result;
 };
 
+//user verification service
+const userVerification = async (payload: { email: string, isVerified: boolean }) => {
+    const isUserExist = await prisma.user.findUnique({
+        where: {
+            email: payload.email,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User data does not found.");
+    }
+    if (isUserExist.isActive !== UserStatus.ACTIVE) {
+        throw new ApiError(httpStatus.BAD_REQUEST, `User status is ${isUserExist.isActive}`);
+    }
+    if (isUserExist.isVerified === payload.isVerified) {
+        throw new ApiError(httpStatus.BAD_REQUEST, `User already have giving verification status.`);
+    }
+    const result = await prisma.user.update({
+        where: {
+            email: payload.email,
+        },
+        data: {
+            isVerified: payload.isVerified
+        },
+        select: {
+            isVerified: true,
+            name: true,
+            email: true
+        }
+    });
+    return result;
+};
+
 
 export const UserServices = {
     userRegistration,
@@ -231,4 +263,5 @@ export const UserServices = {
     getAllUsers,
     userProfileUpdate,
     userProfilePhotoUpdate,
+    userVerification
 };
