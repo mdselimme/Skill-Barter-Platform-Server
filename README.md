@@ -284,6 +284,37 @@ Api Response Body:
 }
 ```
 
+**9. Verify User Email**
+
+- PATCH http://localhost:5000/api/v1/user/verify-user
+
+- credentials: true
+
+- role: ADMIN, SUPER_ADMIN
+
+Login Request Body:
+
+```json
+{
+    "email":"example@gmail.com",
+    "isVerified": true
+}
+```
+Api Response Body:
+
+```json
+{
+    "statusCode": 200,
+    "data": {
+        "isVerified": true,
+        "name": "Selim",
+        "email": "example@gmail.com"
+    },
+    "message": "User verification updated Successfully.",
+    "success": true
+}
+```
+
 #### Auth Api Endpoints
 
 **1. Login**
